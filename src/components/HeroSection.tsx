@@ -60,25 +60,25 @@ export default function HeroSection() {
       <InteractiveGrid />
 
       {/* Top Left Corner */}
-      <div className="absolute top-8 left-8 z-20 flex flex-col justify-center items-start hero-left hidden md:flex h-12">
-         <div className="relative w-40 sm:w-56 h-10 sm:h-12">
+      <div className="absolute top-4 sm:top-8 left-4 sm:left-8 z-20 flex flex-col justify-center items-start hero-left h-8 sm:h-12 scale-75 origin-top-left sm:scale-100 sm:origin-center">
+         <div className="relative w-32 sm:w-40 md:w-56 h-8 sm:h-10 md:h-12">
             <Image src="/logos/Logo2.png" alt="APAG Top Logo" fill className="object-contain object-left" priority />
          </div>
       </div>
 
       {/* Vertical Text & Portrait Left */}
-      <div className="absolute left-10 lg:left-16 top-1/3 -translate-y-1/2 z-20 flex flex-col items-center gap-8 hero-left hidden md:flex">
-        <div className="relative w-16 h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
+      <div className="absolute left-2 sm:left-10 lg:left-16 top-[40%] sm:top-1/3 -translate-y-1/2 z-20 flex flex-col items-center gap-4 sm:gap-8 hero-left scale-[0.6] sm:scale-100 origin-left">
+        <div className="relative w-12 sm:w-16 h-16 sm:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
           <Image src="/images/portrait.png" alt="Student" fill className="object-cover opacity-90" />
         </div>
-        <div className="h-12 w-[2px] bg-[#2c2b7c]/20"></div>
-        <p className="[writing-mode:vertical-lr] rotate-180 text-xs font-bold uppercase tracking-[0.3em] text-[#555]">
+        <div className="h-8 sm:h-12 w-[2px] bg-[#2c2b7c]/20"></div>
+        <p className="[writing-mode:vertical-lr] rotate-180 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#555]">
           Dành cho Thí sinh 2k8
         </p>
       </div>
 
       {/* Top Right Corner (Restored) */}
-      <div className="absolute top-8 right-8 z-20 flex justify-end items-center hero-right hidden md:flex h-12">
+      <div className="absolute top-4 sm:top-8 right-4 sm:right-8 z-20 flex justify-end items-center hero-right h-8 sm:h-12 scale-[0.65] origin-top-right sm:scale-100 sm:origin-center">
         <a href="#admissions" className="flex flex-col items-end justify-center text-sm text-[#2c2b7c] font-bold border-b-2 border-[#2c2b7c]/20 pb-1 hover:border-[#ed1c29] hover:text-[#ed1c29] transition-colors leading-tight">
           Cổng xét tuyển Đợt 1
           <span className="text-[10px] text-[#555] font-semibold tracking-widest mt-1">01/06 - 12/07/2026</span>
@@ -86,12 +86,12 @@ export default function HeroSection() {
       </div>
 
       {/* Side Horizontal Image Right */}
-      <div className="absolute right-10 lg:right-16 top-1/3 -translate-y-1/2 z-20 flex flex-col items-end gap-6 hero-right hidden md:flex">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#555] text-right max-w-[150px]">
+      <div className="absolute right-2 sm:right-10 lg:right-16 top-[40%] sm:top-1/3 -translate-y-1/2 z-20 flex flex-col items-end gap-4 sm:gap-6 hero-right scale-[0.6] sm:scale-100 origin-right">
+        <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#555] text-right max-w-[120px] sm:max-w-[150px]">
           Chuẩn mực quốc tế
         </p>
-        <div className="h-[2px] w-12 bg-[#2c2b7c]/20"></div>
-        <div className="relative w-32 h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
+        <div className="h-[2px] w-8 sm:w-12 bg-[#2c2b7c]/20"></div>
+        <div className="relative w-24 sm:w-32 h-16 sm:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
            <Image src="/images/building.png" alt="University" fill className="object-cover opacity-90" />
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function HeroSection() {
       {/* Bottom Center - Stacked Cards & Arrow */}
       <div className="absolute bottom-16 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-6 hero-up">
         
-        <div className="stacked-container relative w-24 h-32 cursor-pointer hidden md:block">
+        <div className="stacked-container relative w-16 h-24 sm:w-24 sm:h-32 cursor-pointer block scale-90 sm:scale-100">
           {/* Card 3 (Back) */}
           <div className="stacked-card absolute inset-0 bg-black/5 backdrop-blur-sm border border-black/10 rounded-sm -rotate-6 transform transition-transform shadow-md"></div>
           {/* Card 2 (Middle) */}

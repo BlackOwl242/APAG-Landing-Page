@@ -54,11 +54,11 @@ export default function AboutSection() {
   return (
     <section id="about" ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center py-40 px-4 md:px-12 bg-[#FAFAFA]">
       
-      {/* Corner Brackets */}
-      <div className="absolute top-10 left-10 md:top-20 md:left-20 w-8 h-8 border-t-2 border-l-2 border-[#2c2b7c]/30 hidden md:block"></div>
-      <div className="absolute top-10 right-10 md:top-20 md:right-20 w-8 h-8 border-t-2 border-r-2 border-[#2c2b7c]/30 hidden md:block"></div>
-      <div className="absolute bottom-10 left-10 md:bottom-20 md:left-20 w-8 h-8 border-b-2 border-l-2 border-[#2c2b7c]/30 hidden md:block"></div>
-      <div className="absolute bottom-10 right-10 md:bottom-20 md:right-20 w-8 h-8 border-b-2 border-r-2 border-[#2c2b7c]/30 hidden md:block"></div>
+      {/* Corner Borders */}
+      <div className="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-20 md:left-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-l-2 border-[#2c2b7c]/30 block"></div>
+      <div className="absolute top-4 right-4 sm:top-10 sm:right-10 md:top-20 md:right-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-r-2 border-[#2c2b7c]/30 block"></div>
+      <div className="absolute bottom-4 left-4 sm:bottom-10 sm:left-10 md:bottom-20 md:left-20 w-6 h-6 sm:w-8 sm:h-8 border-b-2 border-l-2 border-[#2c2b7c]/30 block"></div>
+      <div className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 md:bottom-20 md:right-20 w-6 h-6 sm:w-8 sm:h-8 border-b-2 border-r-2 border-[#2c2b7c]/30 block"></div>
 
       <div className="w-full max-w-[85vw] mx-auto flex flex-col items-center relative z-10">
         
@@ -82,7 +82,7 @@ export default function AboutSection() {
           <span className="about-word inline-block mr-3 text-[#2c2b7c]">SÁNG</span>
           <span className="about-word inline-block mr-6 text-[#2c2b7c]">TẠO</span>
           
-          <br className="hidden lg:block" />
+          <br className="block" />
 
           <span className="about-word inline-block mr-3 text-[#2c2b7c]">—</span>
 

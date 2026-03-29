@@ -8,8 +8,8 @@ export default function Footer() {
     <footer id="contact" className="relative bg-[#FAFAFA] pt-24 pb-48 border-t border-[#2c2b7c]/10 z-10 overflow-hidden">
       
       {/* Corner Brackets */}
-      <div className="absolute top-10 left-10 md:top-20 md:left-20 w-8 h-8 border-t-2 border-l-2 border-[#2c2b7c]/30 hidden md:block"></div>
-      <div className="absolute top-10 right-10 md:top-20 md:right-20 w-8 h-8 border-t-2 border-r-2 border-[#2c2b7c]/30 hidden md:block"></div>
+      <div className="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-20 md:left-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-l-2 border-[#2c2b7c]/30 block opacity-50 sm:opacity-100"></div>
+      <div className="absolute top-4 right-4 sm:top-10 sm:right-10 md:top-20 md:right-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-r-2 border-[#2c2b7c]/30 block opacity-50 sm:opacity-100"></div>
 
       <div className="max-w-[90vw] mx-auto px-6 relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
         
