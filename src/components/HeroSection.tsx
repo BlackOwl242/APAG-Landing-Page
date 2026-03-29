@@ -67,7 +67,7 @@ export default function HeroSection() {
       </div>
 
       {/* Vertical Text & Portrait Left */}
-      <div className="absolute left-4 md:left-10 lg:left-16 top-[15%] md:top-[25%] lg:top-[30%] -translate-y-1/2 z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
+      <div className="absolute left-4 md:left-10 lg:left-16 top-[30%] sm:top-[35%] md:top-[40%] lg:top-[35%] -translate-y-1/2 z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
         <div className="relative w-10 md:w-16 h-12 md:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
           <Image src="/images/portrait.png" alt="Student" fill className="object-cover opacity-90" />
         </div>
