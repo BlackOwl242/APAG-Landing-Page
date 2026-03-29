@@ -4,7 +4,6 @@ import HeadquartersSection from "@/components/HeadquartersSection";
 import BranchesSection from "@/components/BranchesSection";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
-import ProgramsGroup1Section from "@/components/ProgramsGroup1Section";
 
 import TimelineSection from "@/components/TimelineSection";
 import FinancialSection from "@/components/FinancialSection";
@@ -28,10 +27,7 @@ export default function Home() {
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
       <ServicesSection />
       
-      {/* Core Offerings — All programs in a single tabbed section */}
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
-      <ProgramsGroup1Section />
-      
+
       {/* Meta & Admissions */}
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
       <TimelineSection />

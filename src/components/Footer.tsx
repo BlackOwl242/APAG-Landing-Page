@@ -30,7 +30,6 @@ export default function Footer() {
             <h4 className="text-[10px] text-[#555] font-bold mb-6 uppercase tracking-[0.2em]">Khám phá</h4>
             <ul className="space-y-4 text-sm md:text-base font-bold uppercase tracking-widest">
               <li><a href="#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Trang chủ</a></li>
-              <li><a href="#programs-group-1" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Ngành học</a></li>
               <li><a href="#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tuyển sinh</a></li>
             </ul>
           </div>

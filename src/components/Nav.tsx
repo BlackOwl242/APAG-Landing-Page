@@ -53,6 +53,15 @@ export default function Nav() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    closeMenu();
+    const target = document.querySelector(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div
@@ -82,11 +91,10 @@ export default function Nav() {
         </button>
 
         <div className="hidden lg:flex items-center px-4 gap-1">
-          <Link href="#about" onClick={closeMenu} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</Link>
-          <Link href="#programs-group-1" onClick={closeMenu} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Ngành học</Link>
-          <Link href="#timeline" onClick={closeMenu} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</Link>
-          <Link href="#financial" onClick={closeMenu} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Học bổng</Link>
-          <Link href="#contact" onClick={closeMenu} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</Link>
+          <a href="#about" onClick={(e) => handleScroll(e, '#about')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</a>
+          <a href="#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</a>
+          <a href="#financial" onClick={(e) => handleScroll(e, '#financial')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Học bổng</a>
+          <a href="#contact" onClick={(e) => handleScroll(e, '#contact')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</a>
         </div>
 
         <div className="pl-4 border-l border-black/10 flex items-center pr-1 ml-1 h-8">
@@ -115,12 +123,11 @@ export default function Nav() {
         </div>
 
         <ul ref={menuItemsRef} className="flex flex-col items-center gap-6 md:gap-8 font-heading text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-[#2c2b7c]">
-           <li><Link onClick={closeMenu} href="#headquarters" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tổng quan</Link></li>
-           <li><Link onClick={closeMenu} href="#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tầm nhìn</Link></li>
-           <li><Link onClick={closeMenu} href="#programs-group-1" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Đào tạo</Link></li>
-           <li><Link onClick={closeMenu} href="#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tuyển sinh</Link></li>
-           <li><Link onClick={closeMenu} href="#financial" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Học bổng</Link></li>
-           <li><Link onClick={closeMenu} href="#contact" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Liên hệ</Link></li>
+           <li><a onClick={(e) => handleScroll(e, '#headquarters')} href="#headquarters" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tổng quan</a></li>
+           <li><a onClick={(e) => handleScroll(e, '#about')} href="#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Về chúng tôi</a></li>
+           <li><a onClick={(e) => handleScroll(e, '#timeline')} href="#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Lịch trình</a></li>
+           <li><a onClick={(e) => handleScroll(e, '#financial')} href="#financial" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Học bổng</a></li>
+           <li><a onClick={(e) => handleScroll(e, '#contact')} href="#contact" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Liên hệ</a></li>
         </ul>
       </div>
     </>
