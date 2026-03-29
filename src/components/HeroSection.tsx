@@ -67,7 +67,7 @@ export default function HeroSection() {
       </div>
 
       {/* Vertical Text & Portrait Left */}
-      <div className="absolute left-4 md:left-10 lg:left-16 top-1/3 -translate-y-1/2 z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
+      <div className="absolute left-4 md:left-10 lg:left-16 top-[22%] md:top-1/3 -translate-y-1/2 z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
         <div className="relative w-10 md:w-16 h-12 md:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
           <Image src="/images/portrait.png" alt="Student" fill className="object-cover opacity-90" />
         </div>
@@ -86,7 +86,7 @@ export default function HeroSection() {
       </div>
 
       {/* Side Horizontal Image Right */}
-      <div className="absolute right-4 md:right-10 lg:right-16 top-1/3 -translate-y-1/2 z-20 flex flex-col items-end gap-3 md:gap-6 hero-right">
+      <div className="absolute right-4 md:right-10 lg:right-16 top-[22%] md:top-1/3 -translate-y-1/2 z-20 flex flex-col items-end gap-3 md:gap-6 hero-right">
         <p className="text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#555] text-right max-w-[80px] md:max-w-[150px]">
           Chuẩn mực quốc tế
         </p>
@@ -108,7 +108,7 @@ export default function HeroSection() {
       {/* Bottom Center - Stacked Cards & Arrow */}
       <div className="absolute bottom-16 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-6 hero-up">
         
-        <div className="stacked-container relative w-16 h-20 md:w-24 md:h-32 cursor-pointer flex justify-center">
+        <div className="stacked-container relative w-24 h-32 md:w-28 md:h-40 cursor-pointer flex justify-center">
           {/* Card 3 (Back) */}
           <div className="stacked-card absolute inset-0 bg-black/5 backdrop-blur-sm border border-black/10 rounded-sm -rotate-6 transform transition-transform shadow-md"></div>
           {/* Card 2 (Middle) */}
