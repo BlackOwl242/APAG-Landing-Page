@@ -103,6 +103,14 @@ export default function PhuongThucPage() {
     }, 50);
 
     const ctx = gsap.context(() => {
+      // Background Marquee chạy vô tận
+      gsap.to(".page-marquee", {
+        xPercent: -50,
+        ease: "none",
+        duration: 30,
+        repeat: -1,
+      });
+
       gsap.fromTo(
         ".fade-up",
         { y: 60, opacity: 0 },
@@ -137,13 +145,22 @@ export default function PhuongThucPage() {
       
       {/* Hero Section of Subpage */}
       <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-24 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
-         <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#E5E5E5] rounded-full blur-[120px] opacity-40 pointer-events-none -z-10" />
-         
-         <p className="fade-up text-[#ed1c29] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] sm:text-xs md:text-sm uppercase mb-3 sm:mb-6">
+         {/* Background Marquee */}
+         <div className="absolute top-[50%] md:top-[60%] left-0 -translate-y-1/2 w-[400vw] flex opacity-10 blur-[8px] pointer-events-none select-none mix-blend-multiply z-0">
+            <div className="page-marquee flex whitespace-nowrap will-change-transform">
+               {[...Array(5)].map((_, i) => (
+                 <span key={i} className="font-heading text-[15vw] md:text-[200px] font-black uppercase tracking-tighter mx-4 leading-none text-black">
+                   PHƯƠNG THỨC XÉT TUYỂN • 2026 • 
+                 </span>
+               ))}
+            </div>
+         </div>
+
+         <p className="fade-up relative z-10 text-[#ed1c29] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] sm:text-xs md:text-sm uppercase mb-3 sm:mb-6">
            Tuyển sinh đại học chính quy 2026
          </p>
          
-         <h1 className="fade-up font-heading flex flex-col items-center font-black uppercase tracking-tighter text-[#2c2b7c] leading-[1.1] text-center w-full max-w-full mx-auto gap-2 md:gap-4 px-2">
+         <h1 className="fade-up relative z-10 font-heading flex flex-col items-center font-black uppercase tracking-tighter text-[#2c2b7c] leading-[1.1] text-center w-full max-w-full mx-auto gap-2 md:gap-4 px-2">
             <span className="text-[6vw] sm:text-[5vw] md:text-5xl lg:text-[60px] xl:text-[80px] whitespace-nowrap">
               Chi Tiết Phương Thức
             </span>

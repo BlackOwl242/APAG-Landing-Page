@@ -113,25 +113,25 @@ export default function TopBar() {
       <div className="container mx-auto px-4 lg:px-6 xl:px-10 py-3 w-full flex items-center justify-between">
          
          {/* Left Side: Back Button & Logo */}
-         <div className="flex items-center gap-4 md:gap-6">
-            <a href="/" onClick={(e) => handlePageTransition(e, "/")} className="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#FAFAFA] border border-black/10 hover:bg-black/5 hover:-translate-x-1 transition-all group shadow-sm cursor-pointer" title="Quay lại Trang chủ">
+         <div className="flex items-center gap-2 lg:gap-4 shrink-0">
+            <a href="/" onClick={(e) => handlePageTransition(e, "/")} className="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-[#FAFAFA] border border-black/10 hover:bg-black/5 hover:-translate-x-1 transition-all group shadow-sm cursor-pointer shrink-0" title="Quay lại Trang chủ">
               <svg className="w-4 h-4 md:w-5 md:h-5 text-[#2c2b7c]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
             </a>
-            <a href="/" onClick={(e) => handlePageTransition(e, "/")} className="flex items-center hover:-translate-y-1 transition-transform group cursor-pointer">
-               <div className="relative w-28 sm:w-36 md:w-44 lg:w-56 h-8 sm:h-10 md:h-12 flex-shrink-0">
+            <a href="/" onClick={(e) => handlePageTransition(e, "/")} className="flex items-center hover:-translate-y-1 transition-transform group cursor-pointer shrink-0">
+               <div className="relative w-24 sm:w-28 md:w-32 lg:w-44 xl:w-56 h-7 sm:h-8 md:h-10 xl:h-12 flex-shrink-0">
                   <img src="/logos/Logo2.png" alt="APAG Logo" className="object-contain object-left w-full h-full" />
                </div>
             </a>
          </div>
 
          {/* Right Side: Navigation & Actions */}
-         <div className="flex items-center gap-4 xl:gap-8">
+         <div className="flex items-center gap-1 md:gap-3 lg:gap-6 xl:gap-8">
             
             {/* Links */}
-            <nav className="hidden md:flex items-center gap-6 xl:gap-8 mr-2" ref={dropdownRef}>
-               <div onClick={() => setDropdownOpen(!dropdownOpen)} className="relative flex items-center gap-1 cursor-pointer text-[#2c2b7c] font-bold text-sm xl:text-[15px] hover:text-[#ed1c29] transition-colors py-2 select-none">
+            <nav className="hidden md:flex items-center gap-3 lg:gap-6 xl:gap-8 mr-0 lg:mr-2" ref={dropdownRef}>
+               <div onClick={() => setDropdownOpen(!dropdownOpen)} className="relative flex items-center gap-1 cursor-pointer text-[#2c2b7c] font-bold text-xs lg:text-sm xl:text-[15px] hover:text-[#ed1c29] transition-colors py-2 select-none whitespace-nowrap">
                   Thông tin tuyển sinh
                   <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? '-rotate-180 text-[#ed1c29]' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
@@ -171,21 +171,22 @@ export default function TopBar() {
                      </a>
                   </div>
                </div>
-               <a href="/tracuu" onClick={(e) => handlePageTransition(e, "/tracuu")} className="text-[#2c2b7c] font-bold text-sm xl:text-[15px] hover:text-[#ed1c29] transition-colors whitespace-nowrap cursor-pointer">
+               <a href="/tracuu" onClick={(e) => handlePageTransition(e, "/tracuu")} className="text-[#2c2b7c] font-bold text-xs lg:text-sm xl:text-[15px] hover:text-[#ed1c29] transition-colors whitespace-nowrap cursor-pointer">
                   Tra cứu hồ sơ
                </a>
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
-               <Link href="/tinhdiem" className="group flex items-center gap-2 px-4 xl:px-5 py-2.5 bg-[#ed1c29]/10 rounded-lg hover:bg-[#ed1c29] transition-all duration-300 relative overflow-hidden">
-                <svg className="w-5 h-5 text-[#ed1c29] group-hover:text-white transition-colors relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center gap-1.5 md:gap-2 lg:gap-3">
+               <Link href="/tinhdiem" className="group flex items-center gap-1 lg:gap-2 px-2 md:px-3 lg:px-4 xl:px-5 py-2 md:py-2.5 bg-[#ed1c29]/10 rounded-lg hover:bg-[#ed1c29] transition-all duration-300 relative overflow-hidden shrink-0">
+                <svg className="w-4 h-4 md:w-5 md:h-5 text-[#ed1c29] group-hover:text-white transition-colors relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <span className="text-sm font-bold text-[#ed1c29] group-hover:text-white transition-colors relative z-10 whitespace-nowrap hidden sm:block">
+                <span className="text-xs md:text-sm font-bold text-[#ed1c29] group-hover:text-white transition-colors relative z-10 whitespace-nowrap hidden lg:block">
                   Tính điểm học bạ
                 </span>
-              </Link> <a href="/#admissions" className="bg-[#ed1c29] text-white px-5 xl:px-8 py-2.5 rounded-lg font-bold text-sm shadow-[0_4px_14px_0_rgba(237,28,41,0.39)] hover:shadow-[0_6px_20px_rgba(237,28,41,0.23)] hover:bg-[#d61723] transition-all hover:-translate-y-0.5 whitespace-nowrap">
+              </Link> 
+              <a href="/#admissions" onClick={(e) => handlePageTransition(e, "/#admissions")} className="bg-[#ed1c29] text-white px-3 md:px-4 lg:px-5 xl:px-8 py-2 md:py-2.5 rounded-lg font-bold text-[11px] lg:text-sm shadow-[0_4px_14px_0_rgba(237,28,41,0.39)] hover:shadow-[0_6px_20px_rgba(237,28,41,0.23)] hover:bg-[#d61723] transition-all hover:-translate-y-0.5 whitespace-nowrap shrink-0">
                   Đăng ký tư vấn
                </a>
             </div>

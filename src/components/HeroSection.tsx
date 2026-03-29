@@ -1,12 +1,33 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import InteractiveGrid from "./InteractiveGrid";
+import LiquidLogo from "./LiquidLogo";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Countdown to 12/07/2026 17:00:00 GMT+7 (Hạn nộp hồ sơ xét tuyển Đợt 1)
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const target = new Date("2026-07-12T17:00:00+07:00").getTime();
+    const tick = () => {
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      setCountdown({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -98,17 +119,49 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Main Center Content (Logo) */}
+      {/* Main Center Content (Logo) — Kurate-style WebGL Liquid Distortion */}
       <div className="relative z-10 w-full flex flex-col items-center justify-center text-center mx-auto">
         <div className="w-full flex justify-center px-4">
-          <div className="relative hero-up w-[90vw] md:w-[70vw] max-w-[800px] h-[30vw] md:h-[18vw] max-h-[250px] mx-auto">
-            <Image src="/logos/Logo1.png" alt="APAG Logo" fill className="object-contain" priority />
-          </div>
+          <LiquidLogo
+            src="/logos/Logo1.png"
+            alt="APAG Logo"
+            className="hero-up w-[90vw] md:w-[70vw] max-w-[800px] h-[30vw] md:h-[18vw] max-h-[250px] mx-auto"
+          />
         </div>
       </div>
 
+      {/* Countdown Timer */}
+      <div className="relative z-10 w-full flex flex-col items-center mt-10 md:mt-14 hero-up">
+        <p className="text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#555] mb-4 md:mb-6">
+          Hạn nộp hồ sơ xét tuyển đợt 1
+        </p>
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+          {[
+            { value: countdown.days, label: "Ngày" },
+            { value: countdown.hours, label: "Giờ" },
+            { value: countdown.minutes, label: "Phút" },
+            { value: countdown.seconds, label: "Giây" },
+          ].map((unit, i) => (
+            <div key={unit.label} className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+              <div className="flex flex-col items-center">
+                <span className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tabular-nums tracking-tight text-[#2c2b7c] leading-none">
+                  {String(unit.value).padStart(2, "0")}
+                </span>
+                <span className="text-[8px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-[#999] mt-1.5 md:mt-2">
+                  {unit.label}
+                </span>
+              </div>
+              {i < 3 && (
+                <span className="font-heading text-xl sm:text-2xl md:text-3xl font-black text-[#ed1c29] leading-none -mt-3 md:-mt-4 select-none">:</span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="w-16 md:w-24 h-[2px] bg-[#ed1c29]/40 mt-5 md:mt-7" />
+      </div>
+
       {/* Bottom Center - Stacked Cards */}
-      <div className="w-full flex justify-center items-center relative mt-20 sm:mt-24 md:mt-32 lg:mt-40 z-30 hero-up pointer-events-auto">
+      <div className="w-full flex justify-center items-center relative mt-12 sm:mt-16 md:mt-20 z-30 hero-up pointer-events-auto">
         <div className="flex flex-col items-center justify-center w-full max-w-[1000px] mx-auto">
           
           {/* Massive Card Container */}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import gsap from "gsap";
 import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
 import ScoreCalculator from "@/components/ScoreCalculator";
@@ -13,6 +14,17 @@ export default function TinhDiemPage() {
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = "";
     }, 50);
+
+    const ctx = gsap.context(() => {
+      gsap.to(".page-marquee", {
+        xPercent: -50,
+        ease: "none",
+        duration: 30, // Chạy chậm tà tà dưới nền
+        repeat: -1,
+      });
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -20,7 +32,19 @@ export default function TinhDiemPage() {
       <TopBar />
 
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-6 relative w-full overflow-hidden bg-[#FAFAFA]">
-        <div className="container mx-auto max-w-7xl flex flex-col items-center">
+        
+        {/* Background Marquee */}
+        <div className="absolute top-[20%] left-0 w-[400vw] flex opacity-10 blur-[8px] pointer-events-none select-none mix-blend-multiply z-0">
+           <div className="page-marquee flex whitespace-nowrap will-change-transform">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="font-heading text-[15vw] md:text-[200px] font-black uppercase tracking-tighter mx-4 leading-none text-black">
+                  TÍNH ĐIỂM XÉT TUYỂN • 2026 • 
+                </span>
+              ))}
+           </div>
+        </div>
+
+        <div className="container mx-auto max-w-7xl flex flex-col items-center relative z-10">
             <h1 className="font-heading text-[clamp(2.5rem,6vw,80px)] font-black uppercase tracking-tighter text-[#2c2b7c] leading-[1.1] text-center mb-6 origin-bottom">
               <span className="text-[#ed1c29]">TÍNH ĐIỂM</span> <br className="hidden md:block"/>XÉT TUYỂN 2026
             </h1>
