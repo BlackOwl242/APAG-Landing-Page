@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Preloader from "@/components/Preloader";
 import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
 import ScoreCalculator from "@/components/ScoreCalculator";
@@ -18,7 +17,6 @@ export default function TinhDiemPage() {
 
   return (
     <main className="relative bg-[#FAFAFA] w-full min-h-screen selection:bg-[#ed1c29] selection:text-[#FAFAFA]">
-      <Preloader />
       <TopBar />
 
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-6 relative w-full overflow-hidden bg-[#FAFAFA]">

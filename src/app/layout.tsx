@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
+import Preloader from "@/components/Preloader";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -71,7 +72,10 @@ export default function RootLayout({
           <div className="kurate-grid-line"></div>
           <div className="kurate-grid-line"></div>
         </div>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <Preloader />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

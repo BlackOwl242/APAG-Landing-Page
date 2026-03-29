@@ -4,12 +4,14 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Nav() {
   const navRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLUListElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     gsap.fromTo(
@@ -92,7 +94,17 @@ export default function Nav() {
       const gsap = gsapModule.default;
       const tl = gsap.timeline({
         onComplete: () => {
-          window.location.href = href;
+          // Thực hiện chuyển trang chìm (SPA Routing) thay vì tải lại toàn bộ Web
+          router.push(href);
+          
+          // Chờ cho Next.js thay component ở nền xong, lộn ngược Outro thành Intro mượt mà
+          gsap.to(overlay, {
+             scaleY: 0,
+             duration: 0.7,
+             ease: "power4.inOut",
+             delay: 0.2,
+             onComplete: () => overlay.remove()
+          });
         }
       });
 

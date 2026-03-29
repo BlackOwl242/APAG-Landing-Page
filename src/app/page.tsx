@@ -1,4 +1,3 @@
-import Preloader from "@/components/Preloader";
 import Nav from "@/components/Nav";
 import HeroSection from "@/components/HeroSection";
 import HeadquartersSection from "@/components/HeadquartersSection";
@@ -16,7 +15,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="relative bg-[#FAFAFA] w-full min-h-screen selection:bg-[#ed1c29] selection:text-[#FAFAFA]">
-      <Preloader />
       <Nav />
       <HeroSection />
       
