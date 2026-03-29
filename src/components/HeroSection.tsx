@@ -32,18 +32,20 @@ export default function HeroSection() {
         { x: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: "power3.out", delay: 0.4 }
       );
 
-      // Stacked cards hover spread
+      // Stacked cards hover spread (Kurate style)
       const cards = gsap.utils.toArray(".stacked-card");
       const stackedContainer = document.querySelector(".stacked-container");
       
       if (stackedContainer) {
         stackedContainer.addEventListener("mouseenter", () => {
-          gsap.to(cards[0] as Element, { rotation: -15, x: -30, duration: 0.4, ease: "power2.out" });
-          gsap.to(cards[2] as Element, { rotation: 15, x: 30, duration: 0.4, ease: "power2.out" });
+          gsap.to(cards[0] as Element, { rotation: -12, xPercent: -55, yPercent: 8, duration: 0.6, ease: "power3.out" });
+          gsap.to(cards[1] as Element, { rotation: 12, xPercent: 55, yPercent: 8, duration: 0.6, ease: "power3.out" });
+          gsap.to(cards[2] as Element, { yPercent: -5, scale: 1.02, duration: 0.6, ease: "power3.out" });
         });
         stackedContainer.addEventListener("mouseleave", () => {
-          gsap.to(cards[0] as Element, { rotation: -5, x: 0, duration: 0.4, ease: "power2.out" });
-          gsap.to(cards[2] as Element, { rotation: 5, x: 0, duration: 0.4, ease: "power2.out" });
+          gsap.to(cards[0] as Element, { rotation: -6, xPercent: 0, yPercent: 0, duration: 0.6, ease: "power3.out" });
+          gsap.to(cards[1] as Element, { rotation: 3, xPercent: 0, yPercent: 0, duration: 0.6, ease: "power3.out" });
+          gsap.to(cards[2] as Element, { yPercent: 0, scale: 1, duration: 0.6, ease: "power3.out" });
         });
       }
 
@@ -106,9 +108,11 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom Center - Stacked Cards & Arrow */}
-      <div className="absolute bottom-12 md:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 md:gap-6 hero-up">
+      {/* Moved down to bottom-[-10vh] to overflow the section fold like Kurate, and enlarged considerably */}
+      <div className="absolute bottom-[-15vh] md:bottom-[-20vh] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center hero-up pointer-events-auto w-full">
         
-        <div className="stacked-container relative w-32 h-44 md:w-32 md:h-44 lg:w-36 lg:h-52 cursor-pointer flex justify-center">
+        {/* Massive Card Container */}
+        <div className="stacked-container relative w-[60vw] h-[85vw] sm:w-[300px] sm:h-[420px] md:w-[380px] md:h-[520px] lg:w-[450px] lg:h-[620px] cursor-pointer flex justify-center perspective-[1000px]">
           {/* Card 3 (Back) */}
           <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm p-1 -rotate-6 transform transition-transform shadow-md z-0 flex items-center justify-center">
              <div className="relative w-full h-full grayscale opacity-60 overflow-hidden">
@@ -122,8 +126,8 @@ export default function HeroSection() {
              </div>
           </div>
           {/* Card 1 (Front) */}
-          <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm z-10 p-1 flex items-center justify-center transform transition-transform shadow-xl">
-            <div className="relative w-full h-full grayscale opacity-90 overflow-hidden">
+          <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm z-10 p-2 flex items-center justify-center transform transition-transform shadow-2xl">
+            <div className="relative w-full h-full grayscale-[0.2] overflow-hidden">
                <Image src="/images/portrait.png" alt="Student" fill className="object-cover" />
             </div>
           </div>
