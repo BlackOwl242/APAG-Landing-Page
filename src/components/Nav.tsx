@@ -90,11 +90,11 @@ export default function Nav() {
           </span>
         </button>
 
-        <div className="flex items-center px-2 sm:px-4 gap-1 overflow-x-auto max-w-[45vw] md:max-w-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <a href="#about" onClick={(e) => handleScroll(e, '#about')} className="whitespace-nowrap px-2 py-1.5 sm:px-3 sm:py-2 text-[10px] sm:text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</a>
-          <a href="#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="whitespace-nowrap px-2 py-1.5 sm:px-3 sm:py-2 text-[10px] sm:text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</a>
-          <a href="#financial" onClick={(e) => handleScroll(e, '#financial')} className="whitespace-nowrap px-2 py-1.5 sm:px-3 sm:py-2 text-[10px] sm:text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Học bổng</a>
-          <a href="#contact" onClick={(e) => handleScroll(e, '#contact')} className="whitespace-nowrap px-2 py-1.5 sm:px-3 sm:py-2 text-[10px] sm:text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</a>
+        <div className="hidden lg:flex items-center px-4 gap-1">
+          <a href="#about" onClick={(e) => handleScroll(e, '#about')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</a>
+          <a href="#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</a>
+          <a href="#financial" onClick={(e) => handleScroll(e, '#financial')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Học bổng</a>
+          <a href="#contact" onClick={(e) => handleScroll(e, '#contact')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</a>
         </div>
 
         <div className="pl-4 border-l border-black/10 flex items-center pr-1 ml-1 h-8">
