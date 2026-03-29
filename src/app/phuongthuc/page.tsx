@@ -94,9 +94,14 @@ export default function PhuongThucPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll to top automatically when navigating to this new page
-    window.scrollTo(0, 0);
+    // Khóa cuộn màn hình ngay khi vào để chặn trình duyệt nhớ vị trí cũ
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 50);
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".fade-up",
