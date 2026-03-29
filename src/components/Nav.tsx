@@ -66,6 +66,35 @@ export default function Nav() {
     }
   };
 
+  const handlePageTransition = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    closeMenu();
+
+    const overlay = document.createElement("div");
+    overlay.className = "fixed inset-0 z-[99999] bg-[#FAFAFA] flex items-center justify-center pointer-events-auto transform translate-y-[100%]";
+    
+    const logoContainer = document.createElement("div");
+    logoContainer.className = "relative w-48 h-12 sm:h-16 animate-pulse opacity-0";
+    logoContainer.innerHTML = `<img src="/logos/Logo2.png" style="width:100%; height:100%; object-fit:contain;" />`;
+    
+    overlay.appendChild(logoContainer);
+    document.body.appendChild(overlay);
+
+    import("gsap").then((gsapModule) => {
+      const gsap = gsapModule.default;
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            window.location.href = href;
+          }, 300);
+        }
+      });
+
+      tl.to(overlay, { y: 0, duration: 0.8, ease: "power4.inOut" })
+        .to(logoContainer, { opacity: 1, duration: 0.4 }, "-=0.2");
+    });
+  };
+
   return (
     <>
       <div
@@ -97,7 +126,7 @@ export default function Nav() {
         <div className="hidden lg:flex items-center px-4 gap-1">
           <a href="/#about" onClick={(e) => handleScroll(e, '#about')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</a>
           <a href="/#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</a>
-          <Link href="/phuongthuc" className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Phương thức</Link>
+          <a href="/phuongthuc" onClick={(e) => handlePageTransition(e, "/phuongthuc")} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Phương thức</a>
           <a href="/#contact" onClick={(e) => handleScroll(e, '#contact')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</a>
         </div>
 
@@ -130,7 +159,7 @@ export default function Nav() {
            <li><a onClick={(e) => handleScroll(e, '#headquarters')} href="/#headquarters" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tổng quan</a></li>
            <li><a onClick={(e) => handleScroll(e, '#about')} href="/#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Về chúng tôi</a></li>
            <li><a onClick={(e) => handleScroll(e, '#timeline')} href="/#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Lịch trình</a></li>
-           <li><Link onClick={closeMenu} href="/phuongthuc" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Phương thức</Link></li>
+           <li><a onClick={(e) => handlePageTransition(e, "/phuongthuc")} href="/phuongthuc" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Phương thức</a></li>
            <li><a onClick={(e) => handleScroll(e, '#contact')} href="/#contact" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Liên hệ</a></li>
         </ul>
       </div>

@@ -39,6 +39,34 @@ export default function AdmissionsMethodsCTA() {
     return () => ctx.revert();
   }, []);
 
+  const handlePageTransition = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    const overlay = document.createElement("div");
+    overlay.className = "fixed inset-0 z-[99999] bg-[#FAFAFA] flex items-center justify-center pointer-events-auto transform translate-y-[100%]";
+    
+    const logoContainer = document.createElement("div");
+    logoContainer.className = "relative w-48 h-12 sm:h-16 animate-pulse opacity-0";
+    logoContainer.innerHTML = `<img src="/logos/Logo2.png" style="width:100%; height:100%; object-fit:contain;" />`;
+    
+    overlay.appendChild(logoContainer);
+    document.body.appendChild(overlay);
+
+    import("gsap").then((gsapModule) => {
+      const gsap = gsapModule.default;
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            window.location.href = href;
+          }, 300);
+        }
+      });
+
+      tl.to(overlay, { y: 0, duration: 0.8, ease: "power4.inOut" })
+        .to(logoContainer, { opacity: 1, duration: 0.4 }, "-=0.2");
+    });
+  };
+
   return (
     <section ref={containerRef} className="relative w-full py-24 md:py-32 flex flex-col items-center justify-center bg-[#FAFAFA] text-[#0E0F0F] overflow-hidden">
 
@@ -65,14 +93,14 @@ export default function AdmissionsMethodsCTA() {
           Năm 2026, Phân hiệu Học viện Hành chính và Quản trị công tại TP. Đà Nẵng áp dụng 4 phương thức xét tuyển linh hoạt, giúp thí sinh tối đa hóa cơ hội trúng tuyển. Khám phá ngay các điều kiện, hồ sơ và mốc thời gian quan trọng!
         </p>
 
-        <Link href="/phuongthuc" className="method-text-up group relative inline-flex items-center justify-center gap-4 px-8 py-4 md:px-12 md:py-5 bg-[#2c2b7c] text-white rounded-full font-bold uppercase tracking-wider overflow-hidden transition-all duration-500 hover:shadow-2xl border border-[#2c2b7c] hover:border-[#ed1c29]">
+        <a href="/phuongthuc" onClick={(e) => handlePageTransition(e, "/phuongthuc")} className="method-text-up group relative inline-flex items-center justify-center gap-4 px-8 py-4 md:px-12 md:py-5 bg-[#2c2b7c] text-white rounded-full font-bold uppercase tracking-wider overflow-hidden transition-all duration-500 hover:shadow-2xl border border-[#2c2b7c] hover:border-[#ed1c29]">
           <span className="relative z-10 text-xs md:text-sm">Xem chi tiết các phương thức</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="relative z-10 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
           {/* Fill Animation */}
           <div className="absolute inset-0 h-full w-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 bg-[#ed1c29] z-0" />
-        </Link>
+        </a>
         
       </div>
     </section>
