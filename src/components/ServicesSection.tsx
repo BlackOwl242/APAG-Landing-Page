@@ -7,14 +7,73 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
-  { id: "01", title: "TÍNH ĐIỂM", subtitle: "HỌC BẠ" },
-  { id: "02", title: "TRA CỨU", subtitle: "HỒ SƠ" },
-  { id: "03", title: "ĐĂNG KÝ", subtitle: "TƯ VẤN" },
+  { id: "01", title: "TÍNH ĐIỂM", subtitle: "HỌC BẠ", link: "/tinhdiem", isScroll: false },
+  { id: "02", title: "TRA CỨU", subtitle: "HỒ SƠ", link: "/tracuu", isScroll: false },
+  { id: "03", title: "ĐĂNG KÝ", subtitle: "TƯ VẤN", link: "#admissions", isScroll: true },
 ];
+
+import { useRouter } from "next/navigation";
 
 export default function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
   
+  const handleAction = (e: React.MouseEvent<HTMLAnchorElement>, service: typeof services[0]) => {
+     e.preventDefault();
+     if (service.isScroll) {
+       const target = document.querySelector(service.link);
+       if (target) {
+         target.scrollIntoView({ behavior: 'smooth' });
+       }
+     } else {
+       // Kích hoạt siêu hiệu ứng Fill Logo trước khi nhảy trang phụ!
+       const overlay = document.createElement("div");
+       overlay.className = "fixed inset-0 z-[100000] bg-[#FAFAFA] flex items-center justify-center flex-col pointer-events-auto origin-bottom";
+       overlay.style.transform = "scaleY(0)";
+       overlay.innerHTML = `
+         <div class="relative w-[80vw] md:w-[60vw] max-w-[800px] aspect-[4/1] select-none flex items-center justify-center">
+            <div class="absolute inset-0 opacity-15 grayscale">
+               <img src="/logos/Logo1.png" style="width:100%; height:100%; object-fit:contain;" />
+            </div>
+            <div class="absolute inset-0" id="service-fill-logo" style="clip-path: inset(100% 0 0 0)">
+               <img src="/logos/Logo1.png" style="width:100%; height:100%; object-fit:contain;" />
+            </div>
+         </div>
+         <div id="service-counter" class="absolute bottom-6 right-8 md:bottom-12 md:right-16 text-[#2c2b7c] font-heading text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-black tracking-tighter">0%</div>
+       `;
+       document.body.appendChild(overlay);
+
+       import("gsap").then((gsapModule) => {
+         const gsap = gsapModule.default;
+         const tl = gsap.timeline({
+           onComplete: () => {
+             router.push(service.link);
+             gsap.to(overlay, {
+                scaleY: 0,
+                duration: 0.7,
+                ease: "power4.inOut",
+                delay: 0.2,
+                onComplete: () => overlay.remove()
+             });
+           }
+         });
+         tl.to(overlay, { scaleY: 1, duration: 0.6, ease: "power4.inOut" });
+         let obj = { p: 0 };
+         tl.to(obj, {
+           p: 100,
+           duration: 1.5,
+           ease: "power3.inOut",
+           onUpdate: () => {
+             const counter = document.getElementById("service-counter");
+             const fill = document.getElementById("service-fill-logo");
+             if (counter) counter.innerText = `${Math.round(obj.p)}%`;
+             if (fill) fill.style.clipPath = `inset(${100 - obj.p}% 0 0 0)`;
+           }
+         });
+       });
+     }
+  };
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -42,7 +101,7 @@ export default function ServicesSection() {
       <div className="w-full flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-[#2c2b7c]/10 border-b border-[#2c2b7c]/10">
         
         {services.map((service, index) => (
-          <a key={index} href={service.id === "03" ? "#admissions" : "#"} className="service-card group flex-1 aspect-square md:aspect-auto md:h-[60vh] flex flex-col justify-between p-8 hover:bg-[#2c2b7c]/5 transition-colors relative overflow-hidden">
+          <a key={index} href={service.link} onClick={(e) => handleAction(e, service)} className="service-card group flex-1 aspect-square md:aspect-auto md:h-[60vh] flex flex-col justify-between p-8 hover:bg-[#2c2b7c]/5 transition-colors relative overflow-hidden">
             
             <div className="flex justify-between items-start w-full relative z-10">
               <span className="font-sans text-xs font-bold text-[#555] tracking-widest uppercase">({service.id})</span>
