@@ -37,9 +37,9 @@ export default function Preloader() {
       onUpdate: () => {
         const prog = Math.round(obj.p);
         
-        // Cập nhật text phần trăm
+        // Cập nhật text phần trăm (chỉ hiện số)
         if (counterRef.current) {
-          counterRef.current.innerText = `ĐANG TẢI... ${prog}%`;
+          counterRef.current.innerText = `${prog}%`;
         }
         
         // Đổ đầy Logo bằng cách cắt mặt nạ từ dưới lên
@@ -54,15 +54,12 @@ export default function Preloader() {
     };
   }, []);
 
-  // KHÔNG dùng if (!mounted) ở đây để Server side code được render ra HTML sẵn,
-  // khi file tải xong CSS tải xong, màn loading sẽ bọc chặt web ngay lập tức không bị chớp giật nội dung ảo!
-
   return (
     <div 
       ref={containerRef} 
       className="fixed inset-0 z-[10000] bg-[#FAFAFA] flex items-center justify-center flex-col pointer-events-none"
     >
-      <div className="relative w-[250px] sm:w-[350px] md:w-[450px] h-[80px] sm:h-[120px] select-none flex items-center justify-center">
+      <div className="relative w-[80vw] md:w-[60vw] max-w-[800px] aspect-[4/1] select-none flex items-center justify-center">
          
          {/* Lớp hiển thị 0% - Mờ xỉn hoặc đen trắng */}
          <div className="absolute inset-0 opacity-15 grayscale">
@@ -89,14 +86,14 @@ export default function Preloader() {
               className="object-contain" 
             />
          </div>
+      </div>
 
-         {/* Bộ đếm phần trăm Loading... */}
-         <div 
-            ref={counterRef}
-            className="absolute -bottom-4 md:-bottom-2 right-4 text-[#2c2b7c] font-sans text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase"
-         >
-            ĐANG TẢI... 0%
-         </div>
+      {/* Bộ đếm phần trăm - Nằm ở góc dưới cùng bên phải màn hình */}
+      <div 
+         ref={counterRef}
+         className="absolute bottom-6 right-8 md:bottom-12 md:right-16 text-[#2c2b7c] font-heading text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-black tracking-tighter"
+      >
+         0%
       </div>
     </div>
   );
