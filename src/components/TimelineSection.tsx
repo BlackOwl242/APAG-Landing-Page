@@ -18,8 +18,8 @@ export default function TimelineSection() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Reveal each timeline item
-      const items = gsap.utils.toArray(".timeline-item");
-      items.forEach((item: HTMLElement) => {
+      const items = gsap.utils.toArray(".timeline-item") as HTMLElement[];
+      items.forEach((item) => {
         gsap.fromTo(
           item,
           { y: 150, opacity: 0 },
