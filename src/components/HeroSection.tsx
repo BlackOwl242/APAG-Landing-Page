@@ -97,7 +97,7 @@ export default function HeroSection() {
       </div>
 
       {/* Main Center Content */}
-      <div className="relative z-10 w-full flex flex-col items-center text-center mt-[-10vh]">
+      <div className="relative z-10 w-full flex flex-col items-center text-center mt-[-15vh]">
         <div className="w-full flex justify-center px-4">
           <div className="relative hero-up w-[90vw] md:w-[70vw] max-w-[800px] h-[30vw] md:h-[18vw] max-h-[250px]">
             <Image src="/logos/Logo1.png" alt="APAG Logo" fill className="object-contain" priority />
@@ -106,13 +106,21 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom Center - Stacked Cards & Arrow */}
-      <div className="absolute bottom-16 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-6 hero-up">
+      <div className="absolute bottom-12 md:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 md:gap-6 hero-up">
         
-        <div className="stacked-container relative w-32 h-44 md:w-36 md:h-52 lg:w-40 lg:h-56 cursor-pointer flex justify-center">
+        <div className="stacked-container relative w-32 h-44 md:w-32 md:h-44 lg:w-36 lg:h-52 cursor-pointer flex justify-center">
           {/* Card 3 (Back) */}
-          <div className="stacked-card absolute inset-0 bg-black/5 backdrop-blur-sm border border-black/10 rounded-sm -rotate-6 transform transition-transform shadow-md"></div>
+          <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm p-1 -rotate-6 transform transition-transform shadow-md z-0 flex items-center justify-center">
+             <div className="relative w-full h-full grayscale opacity-60 overflow-hidden">
+                <Image src="/images/building.png" alt="Building" fill className="object-cover" />
+             </div>
+          </div>
           {/* Card 2 (Middle) */}
-          <div className="stacked-card absolute inset-0 bg-black/10 backdrop-blur-sm border border-black/15 rounded-sm rotate-3 transform transition-transform shadow-lg"></div>
+          <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm p-1 rotate-3 transform transition-transform shadow-lg z-[5] flex items-center justify-center">
+             <div className="relative w-full h-full grayscale opacity-70 overflow-hidden">
+                <Image src="/images/portrait.png" alt="Portrait" fill className="object-cover" />
+             </div>
+          </div>
           {/* Card 1 (Front) */}
           <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm z-10 p-1 flex items-center justify-center transform transition-transform shadow-xl">
             <div className="relative w-full h-full grayscale opacity-90 overflow-hidden">
