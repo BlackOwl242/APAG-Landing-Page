@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Nav from "@/components/Nav";
+import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -126,28 +127,24 @@ export default function PhuongThucPage() {
   return (
     <main className="relative bg-[#FAFAFA] w-full min-h-screen selection:bg-[#ed1c29] selection:text-[#FAFAFA]" ref={containerRef}>
       
-      {/* Top Left Corner Logo (Back to Home) */}
-      <div className="absolute top-4 md:top-8 left-4 md:left-8 z-50 flex flex-col justify-center items-start h-8 md:h-12 hover:-translate-y-1 transition-transform">
-         <a href="/">
-           <div className="relative w-24 sm:w-32 md:w-56 h-8 md:h-12">
-              <img src="/logos/Logo2.png" alt="APAG Top Logo" className="object-contain object-left w-full h-full" />
-           </div>
-         </a>
-      </div>
-
+      <TopBar />
       <Nav />
       
       {/* Hero Section of Subpage */}
       <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-24 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
          <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#E5E5E5] rounded-full blur-[120px] opacity-40 pointer-events-none -z-10" />
          
-         <p className="fade-up text-[#ed1c29] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] sm:text-xs md:text-sm uppercase mb-4 sm:mb-6">
+         <p className="fade-up text-[#ed1c29] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] sm:text-xs md:text-sm uppercase mb-3 sm:mb-6">
            Tuyển sinh đại học chính quy 2026
          </p>
          
-         <h1 className="fade-up font-heading flex flex-col items-center text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[100px] font-black uppercase tracking-tighter text-[#2c2b7c] leading-[0.9] text-center max-w-6xl mx-auto gap-1 sm:gap-2">
-            <span>Chi Tiết Phương Thức</span>
-            <span className="text-[#ed1c29]">Xét Tuyển</span>
+         <h1 className="fade-up font-heading flex flex-col items-center font-black uppercase tracking-tighter text-[#2c2b7c] leading-[1.1] text-center w-full max-w-full mx-auto gap-2 md:gap-4 px-2">
+            <span className="text-[6vw] sm:text-[5vw] md:text-5xl lg:text-[60px] xl:text-[80px] whitespace-nowrap">
+              Chi Tiết Phương Thức
+            </span>
+            <span className="text-[#ed1c29] text-[11vw] sm:text-[9vw] md:text-7xl lg:text-[90px] xl:text-[110px] whitespace-nowrap">
+              Xét Tuyển
+            </span>
          </h1>
       </section>
 

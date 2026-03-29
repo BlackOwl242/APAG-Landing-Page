@@ -22,6 +22,13 @@ body {
   color: var(--background);
 }
 
+/* Thêm hiệu ứng mịn khi chuyển đổi màn hình (Resize Animation Toàn Hệ Thống) */
+* {
+  transition-property: font-size, line-height, padding, margin, width, max-width, height, min-height, gap;
+  transition-duration: 350ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Custom Utility Classes */
 @utility text-balance {
   text-wrap: balance;

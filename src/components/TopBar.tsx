@@ -7,27 +7,10 @@ export default function TopBar() {
       <div className="container mx-auto px-4 lg:px-6 xl:px-10 py-3 w-full flex items-center justify-between">
          
          {/* Left Side: Logo & Brand Name */}
-         <Link href="/" className="flex items-center gap-5 xl:gap-8 group">
-            {/* Logo */}
-            <div className="font-heading text-3xl font-black tracking-tighter flex-shrink-0">
-               <span className="text-[#ed1c29]">A</span><span className="text-[#2c2b7c]">PAG</span>
-            </div>
-
-            {/* Divider */}
-            <div className="hidden lg:block w-[1.5px] h-12 bg-[#2c2b7c]/10" />
-
-            {/* Brand Text */}
-            <div className="hidden lg:flex flex-col justify-center gap-0.5">
-               <span className="font-heading text-[#2c2b7c] font-black sm:text-sm lg:text-[15px] xl:text-[17px] leading-tight flex items-center gap-1.5 whitespace-nowrap">
-                  PHÂN HIỆU HỌC VIỆN HÀNH CHÍNH
-                  <span className="hidden xl:inline">VÀ QUẢN TRỊ CÔNG TẠI TP. ĐÀ NẴNG</span>
-               </span>
-               <span className="lg:hidden xl:block font-heading text-[#2c2b7c] font-black sm:text-sm lg:text-[15px] xl:text-[17px] leading-tight whitespace-nowrap">
-                  VÀ QUẢN TRỊ CÔNG TẠI TP. ĐÀ NẴNG
-               </span>
-               <span className="text-[#ed1c29] font-bold text-[9px] xl:text-[10px] uppercase tracking-widest mt-1">
-                  Kiến tạo tri thức - Đổi mới sáng tạo - Trách nhiệm quốc gia
-               </span>
+         <Link href="/" className="flex items-center hover:-translate-y-1 transition-transform group">
+            {/* Logo Image directly mimicking homepage */}
+            <div className="relative w-28 sm:w-36 md:w-44 lg:w-56 h-8 sm:h-10 md:h-12 flex-shrink-0">
+               <img src="/logos/Logo2.png" alt="APAG Logo" className="object-contain object-left w-full h-full" />
             </div>
          </Link>
 

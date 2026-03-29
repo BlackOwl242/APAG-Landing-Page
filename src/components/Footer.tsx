@@ -4,6 +4,39 @@ import React from "react";
 import Image from "next/image";
 
 export default function Footer() {
+  const handleExternalNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    const overlay = document.createElement("div");
+    overlay.className = "fixed inset-0 z-[99999] bg-[#FAFAFA] flex items-center justify-center pointer-events-auto transform translate-y-[100%]";
+    
+    const logoContainer = document.createElement("div");
+    logoContainer.className = "relative w-48 h-12 sm:h-16 animate-pulse opacity-0";
+    logoContainer.innerHTML = `<img src="/logos/Logo2.png" style="width:100%; height:100%; object-fit:contain;" />`;
+    
+    overlay.appendChild(logoContainer);
+    document.body.appendChild(overlay);
+
+    import("gsap").then((gsapModule) => {
+      const gsap = gsapModule.default;
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            window.location.href = href;
+          }, 300);
+        }
+      });
+
+      tl.to(overlay, { y: 0, duration: 0.8, ease: "power4.inOut" })
+        .to(logoContainer, { opacity: 1, duration: 0.4 }, "-=0.2");
+    });
+  };
+
+  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer id="contact" className="relative bg-[#FAFAFA] pt-24 pb-48 border-t border-[#2c2b7c]/10 z-10 overflow-hidden">
       
@@ -29,8 +62,8 @@ export default function Footer() {
           <div>
             <h4 className="text-[10px] text-[#555] font-bold mb-6 uppercase tracking-[0.2em]">Khám phá</h4>
             <ul className="space-y-4 text-sm md:text-base font-bold uppercase tracking-widest">
-              <li><a href="#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Trang chủ</a></li>
-              <li><a href="#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tuyển sinh</a></li>
+              <li><a href="https://apag.edu.vn" onClick={(e) => handleExternalNav(e, "https://apag.edu.vn")} className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Trang chủ</a></li>
+              <li><a href="#top" onClick={handleScrollToTop} className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tuyển sinh</a></li>
             </ul>
           </div>
           <div>
