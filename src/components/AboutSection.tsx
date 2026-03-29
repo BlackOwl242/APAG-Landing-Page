@@ -69,31 +69,46 @@ export default function AboutSection() {
         </div>
 
         {/* Massive Inline Typography */}
-        <div ref={textRef} className="font-heading text-[clamp(1.6rem,5vw,70px)] font-black leading-[1.45] text-[#2c2b7c] tracking-tighter w-full break-words">
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">KIẾN</span>
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">TẠO</span>
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">TRI</span>
-          <span className="about-word inline-block mr-6 text-[#2c2b7c]">THỨC</span>
+        <div ref={textRef} className="font-heading text-[clamp(1.5rem,4.5vw,60px)] lg:text-[70px] font-black leading-[1.3] text-[#2c2b7c] tracking-tighter w-full max-w-full">
           
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">—</span>
-          
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">ĐỔI</span>
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">MỚI</span>
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">SÁNG</span>
-          <span className="about-word inline-block mr-6 text-[#2c2b7c]">TẠO</span>
-          
-          <br className="block" />
-
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">—</span>
-
-          {/* Underlined Word */}
-          <span className="about-word inline-block mr-3 text-[#2c2b7c] relative">
-            TRÁCH NHIỆM
-            <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50"></div>
+          <span className="whitespace-nowrap relative inline-block mr-3">
+            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">KIẾN</span>
+            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">TẠO</span>
+            <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
           </span>
 
-          <span className="about-word inline-block mr-3 text-[#2c2b7c]">QUỐC</span>
-          <span className="about-word inline-block text-[#2c2b7c]">GIA</span>
+          <span className="whitespace-nowrap inline-block mr-4 md:mr-6">
+            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">TRI</span>
+            <span className="about-word inline-block text-[#2c2b7c]">THỨC</span>
+          </span>
+          
+          <span className="whitespace-nowrap inline-block mr-3">
+             <span className="about-word inline-block mr-4 md:mr-6 text-[#2c2b7c]">—</span>
+             <span className="relative inline-block mr-2 md:mr-3">
+               <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">ĐỔI</span>
+               <span className="about-word inline-block text-[#2c2b7c]">MỚI</span>
+               <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
+             </span>
+          </span>
+          
+          <span className="whitespace-nowrap inline-block mr-4 md:mr-6">
+            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">SÁNG</span>
+            <span className="about-word inline-block text-[#2c2b7c]">TẠO</span>
+          </span>
+          
+          <span className="whitespace-nowrap inline-block mr-3">
+             <span className="about-word inline-block mr-4 md:mr-6 text-[#2c2b7c]">—</span>
+             <span className="relative inline-block mr-2 md:mr-3">
+               <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">TRÁCH</span>
+               <span className="about-word inline-block text-[#2c2b7c]">NHIỆM</span>
+               <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
+             </span>
+          </span>
+
+          <span className="whitespace-nowrap inline-block">
+            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">QUỐC</span>
+            <span className="about-word inline-block text-[#2c2b7c]">GIA</span>
+          </span>
         </div>
 
       </div>
