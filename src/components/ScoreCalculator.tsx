@@ -289,8 +289,8 @@ export default function ScoreCalculator() {
         // phải thu thập lại toàn bộ kích thước của các thẻ DO, xóa bỏ lỗi "cuộn lên cực nhanh" hay rào chắn không cuộn được xuống.
         setTimeout(() => {
            window.dispatchEvent(new Event('resize')); 
-           if (typeof window !== "undefined" && window.ScrollTrigger) {
-              window.ScrollTrigger.refresh();
+           if (typeof window !== "undefined" && (window as any).ScrollTrigger) {
+              (window as any).ScrollTrigger.refresh();
            }
         }, 100);
 
