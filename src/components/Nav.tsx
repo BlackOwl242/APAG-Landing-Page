@@ -71,27 +71,45 @@ export default function Nav() {
     closeMenu();
 
     const overlay = document.createElement("div");
-    overlay.className = "fixed inset-0 z-[99999] bg-[#FAFAFA] flex items-center justify-center pointer-events-auto transform translate-y-[100%]";
+    overlay.className = "fixed inset-0 z-[100000] bg-[#FAFAFA] flex items-center justify-center flex-col pointer-events-auto origin-bottom";
+    overlay.style.transform = "scaleY(0)";
     
-    const logoContainer = document.createElement("div");
-    logoContainer.className = "relative w-48 h-12 sm:h-16 animate-pulse opacity-0";
-    logoContainer.innerHTML = `<img src="/logos/Logo2.png" style="width:100%; height:100%; object-fit:contain;" />`;
+    overlay.innerHTML = `
+      <div class="relative w-[80vw] md:w-[60vw] max-w-[800px] aspect-[4/1] select-none flex items-center justify-center">
+         <div class="absolute inset-0 opacity-15 grayscale">
+            <img src="/logos/Logo1.png" style="width:100%; height:100%; object-fit:contain;" />
+         </div>
+         <div class="absolute inset-0" id="nav-fill-logo" style="clip-path: inset(100% 0 0 0)">
+            <img src="/logos/Logo1.png" style="width:100%; height:100%; object-fit:contain;" />
+         </div>
+      </div>
+      <div id="nav-counter" class="absolute bottom-6 right-8 md:bottom-12 md:right-16 text-[#2c2b7c] font-heading text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-black tracking-tighter">0%</div>
+    `;
     
-    overlay.appendChild(logoContainer);
     document.body.appendChild(overlay);
 
     import("gsap").then((gsapModule) => {
       const gsap = gsapModule.default;
       const tl = gsap.timeline({
         onComplete: () => {
-          setTimeout(() => {
-            window.location.href = href;
-          }, 300);
+          window.location.href = href;
         }
       });
 
-      tl.to(overlay, { y: 0, duration: 0.8, ease: "power4.inOut" })
-        .to(logoContainer, { opacity: 1, duration: 0.4 }, "-=0.2");
+      tl.to(overlay, { scaleY: 1, duration: 0.6, ease: "power4.inOut" });
+
+      let obj = { p: 0 };
+      tl.to(obj, {
+        p: 100,
+        duration: 1.5,
+        ease: "power3.inOut",
+        onUpdate: () => {
+          const counter = document.getElementById("nav-counter");
+          const fill = document.getElementById("nav-fill-logo");
+          if (counter) counter.innerText = `${Math.round(obj.p)}%`;
+          if (fill) fill.style.clipPath = `inset(${100 - obj.p}% 0 0 0)`;
+        }
+      });
     });
   };
 
