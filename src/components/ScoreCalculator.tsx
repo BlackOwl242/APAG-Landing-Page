@@ -7,9 +7,17 @@ const COMBOS: Record<string, string[]> = {
   "A00": ["Toán", "Vật lý", "Hóa học"],
   "A01": ["Toán", "Vật lý", "Tiếng Anh"],
   "C00": ["Ngữ văn", "Lịch sử", "Địa lý"],
+  "C03": ["Ngữ văn", "Toán", "Lịch sử"],
+  "C04": ["Ngữ văn", "Toán", "Địa lý"],
   "D01": ["Toán", "Ngữ văn", "Tiếng Anh"],
-  "C14": ["Toán", "Ngữ văn", "GDCD"],
-  "C19": ["Ngữ văn", "Lịch sử", "GDCD"]
+  "D10": ["Toán", "Địa lý", "Tiếng Anh"],
+  "D14": ["Ngữ văn", "Lịch sử", "Tiếng Anh"],
+  "D15": ["Ngữ văn", "Địa lý", "Tiếng Anh"]
+};
+
+// Điểm chênh tổ hợp
+const COMBO_BONUS: Record<string, number> = {
+  "C00": +1.0
 };
 
 const AREAS: Record<string, number> = {
@@ -25,12 +33,25 @@ const OBJECTS: Record<string, number> = {
   "Đối tượng 2 (1.0 điểm)": 1.0
 };
 
+const CERTS: Record<string, number> = {
+  "Không có (0 điểm)": 0,
+  "IELTS 5.5 / SAT 1200-1230 (+0.5đ)": 0.5,
+  "IELTS 6.0 / SAT 1231-1300 / HSG Ba cấp Tỉnh (+0.6đ)": 0.6,
+  "IELTS 6.5 / SAT 1301-1350 / HSG Nhì Tỉnh / KK Quốc Gia (+0.7đ)": 0.7,
+  "IELTS 7.0 / SAT 1351-1370 / HSG Nhất Tỉnh / Ba Quốc Gia (+0.8đ)": 0.8,
+  "IELTS 7.5 / SAT 1371-1400 / HSG Nhì Quốc Gia (+0.9đ)": 0.9,
+  "IELTS 8.0+ / SAT 1401+ / HSG Nhất Quốc Gia (+1.0đ)": 1.0
+};
+
 const MAJORS = [
-  "Tất cả các ngành (Trừ Luật)",
-  "Chuyên ngành Luật"
+  "Quản trị nhân lực",
+  "Quản trị văn phòng",
+  "Luật / C.ngành Thanh tra",
+  "Quản lý nhà nước",
+  "Quản trị dịch vụ du lịch và lữ hành",
+  "Kinh tế"
 ];
 
-// Grade Structure
 type Matrix = {
   [row: number]: { [col: string]: string };
 };
@@ -40,6 +61,7 @@ export default function ScoreCalculator() {
   const [major, setMajor] = useState(MAJORS[0]);
   const [area, setArea] = useState("KV3 (0 điểm)");
   const [targetObj, setTargetObj] = useState("Không có (0 điểm)");
+  const [cert, setCert] = useState("Không có (0 điểm)");
   
   const [matrix, setMatrix] = useState<Matrix>({
     0: { g10: "", g11: "", g12: "" },
@@ -61,11 +83,17 @@ export default function ScoreCalculator() {
 
   const subjects = COMBOS[combo];
 
+  // Auto reset matrix if combo length changes (just in case)
+  useEffect(() => {
+    setMatrix({
+      0: { g10: "", g11: "", g12: "" },
+      1: { g10: "", g11: "", g12: "" },
+      2: { g10: "", g11: "", g12: "" }
+    });
+  }, [combo]);
+
   const updateMatrix = (row: number, field: string, value: string) => {
-    // Chỉ cho phép nhập số thập phân
     if (value && !/^\d*\.?\d*$/.test(value)) return;
-    
-    // Giới hạn max 10
     if (parseFloat(value) > 10) value = "10";
 
     setMatrix(prev => ({
@@ -77,7 +105,6 @@ export default function ScoreCalculator() {
   const calculateScore = () => {
     let subjectAvgs = [0, 0, 0];
     let isMissingData = false;
-    let mathOrLitGrade = 0; // Điểm Toán/Văn trong tổ hợp
 
     for (let r = 0; r < 3; r++) {
       const row = matrix[r];
@@ -90,51 +117,50 @@ export default function ScoreCalculator() {
       } else {
         const avg = (g10 + g11 + g12) / 3;
         subjectAvgs[r] = Number(avg.toFixed(2));
-        
-        // Theo dõi điểm Toán/Văn nếu ngành Luật yêu cầu
-        if (subjects[r] === "Toán" || subjects[r] === "Ngữ văn") {
-          mathOrLitGrade = Math.max(mathOrLitGrade, subjectAvgs[r]);
-        }
       }
     }
 
     if (isMissingData) {
-      alert("Vui lòng nhập đầy đủ các điểm rèn luyện!");
+      alert("Vui lòng nhập đầy đủ các điểm học bạ của 3 môn trong cả 3 năm lớp 10, 11 và 12!");
       return;
     }
 
-    const rawTotal = subjectAvgs.reduce((a, b) => a + b, 0);
-    const basePriority = AREAS[area] + OBJECTS[targetObj];
+    // Tổng điểm thô của 3 môn
+    let rawTotal = subjectAvgs.reduce((a, b) => a + b, 0);
     
-    // Giảm dần điểm ưu tiên nếu tổng điểm > 22.5
+    // Cộng điểm thưởng tổ hợp (Ví dụ: C00 tại cơ sở Đà Nẵng được +1 điểm)
+    const comboBonus = COMBO_BONUS[combo] || 0;
+    if (comboBonus > 0) {
+       rawTotal += comboBonus;
+    }
+
+    // Tính điểm ưu tiên (Khu vực + Đối tượng + Giải thưởng/Chứng chỉ)
+    const basePriority = AREAS[area] + OBJECTS[targetObj] + CERTS[cert];
+    
+    // Quy tắc giảm dần điểm ưu tiên của Bộ GD&ĐT (nếu điểm > 22.5)
     let finalPriority = basePriority;
     if (rawTotal > 22.5) {
       finalPriority = basePriority * ((30 - rawTotal) / 7.5);
-      finalPriority = Math.max(0, finalPriority); // Không âm
+      finalPriority = Math.max(0, finalPriority);
     }
 
     const finalScore = Number((rawTotal + finalPriority).toFixed(2));
     
-    // Rule Logic
     let status: "PASS" | "FAIL" = "PASS";
     let messages: string[] = [];
 
-    // Rule 1: Ngưỡng 18.0
-    if (rawTotal < 18.0) {
-      status = "FAIL";
-      messages.push("Cảnh báo: Tổng điểm 3 môn chưa đạt ngưỡng sàn 18.0 theo quy chế APAG 2026.");
+    if (comboBonus > 0) {
+       messages.push(`Tổ hợp ${combo} được hưởng chính sách điểm chênh lệch +${comboBonus} điểm theo Đề án Tuyển sinh 2026 của cơ sở Đà Nẵng.`);
     }
 
-    // Rule 2: Chuyên ngành Luật
-    if (major === "Chuyên ngành Luật") {
-      if (mathOrLitGrade < 6.0) {
-        status = "FAIL";
-        messages.push("Cảnh báo Luật: Bạn phải đạt từ 6.0 trở lên ở môn Toán hoặc Ngữ văn.");
-      }
+    // Điều kiện sàn cơ bản của Học viện (Đạt 18.0)
+    if (rawTotal < 18.0) {
+      status = "FAIL";
+      messages.push("Cảnh báo: Tổng điểm 3 môn chưa đạt ngưỡng sàn 18.0 điểm theo quy chế APAG 2026.");
     }
 
     if (status === "PASS") {
-      messages.push("ĐỦ ĐIỀU KIỆN ỨNG TUYỂN! Chúc mừng bạn đã thỏa mãn điều kiện cốt lõi.");
+      messages.push("ĐỦ ĐIỀU KIỆN ỨNG TUYỂN! Chúc mừng bạn đã thỏa mãn ngưỡng đảm bảo chất lượng đầu vào hệ Đại học chính quy.");
     }
 
     setResult({
@@ -146,7 +172,6 @@ export default function ScoreCalculator() {
       messages
     });
 
-    // Animate Result Block
     setTimeout(() => {
       const el = document.getElementById("result-block");
       if (el) {
@@ -171,7 +196,7 @@ export default function ScoreCalculator() {
             <select 
               value={combo} 
               onChange={e => setCombo(e.target.value)}
-              className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors"
+              className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors truncate"
             >
               {Object.keys(COMBOS).map(k => <option key={k} value={k}>{k} ({COMBOS[k].join(", ")})</option>)}
             </select>
@@ -182,7 +207,7 @@ export default function ScoreCalculator() {
              <select 
                 value={major} 
                 onChange={e => setMajor(e.target.value)}
-                className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors"
+                className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors truncate"
               >
                 {MAJORS.map(m => <option key={m} value={m}>{m}</option>)}
               </select>
@@ -195,24 +220,38 @@ export default function ScoreCalculator() {
           <p className="text-xs text-[#555] font-semibold -mt-3">APAG áp dụng công thức triệt tiêu điểm UT tịnh tiến nếu tổng điểm trên 22.5.</p>
 
           <div className="flex flex-col gap-2">
-            <label className="font-bold text-[#2c2b7c] text-sm md:text-base">Khu Vực Ưu Tiên:</label>
-            <select 
-              value={area} 
-              onChange={e => setArea(e.target.value)}
-              className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors"
-            >
-              {Object.keys(AREAS).map(k => <option key={k} value={k}>{k}</option>)}
-            </select>
+            <div className="flex gap-4 w-full">
+               <div className="w-1/2 flex flex-col gap-2">
+                  <label className="font-bold text-[#2c2b7c] text-sm">Khu Vực UT:</label>
+                  <select 
+                    value={area} 
+                    onChange={e => setArea(e.target.value)}
+                    className="w-full h-14 border-2 border-[#2c2b7c]/50 px-2 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors truncate"
+                  >
+                    {Object.keys(AREAS).map(k => <option key={k} value={k}>{k}</option>)}
+                  </select>
+               </div>
+               <div className="w-1/2 flex flex-col gap-2">
+                  <label className="font-bold text-[#2c2b7c] text-sm">Đối Tượng:</label>
+                  <select 
+                    value={targetObj} 
+                    onChange={e => setTargetObj(e.target.value)}
+                    className="w-full h-14 border-2 border-[#2c2b7c]/50 px-2 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors truncate"
+                  >
+                    {Object.keys(OBJECTS).map(k => <option key={k} value={k}>{k}</option>)}
+                  </select>
+               </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
-             <label className="font-bold text-[#2c2b7c] text-sm md:text-base">Đối Tượng Khuyến Khích:</label>
+             <label className="font-bold text-[#2c2b7c] text-sm md:text-base">Chứng chỉ / Giải thưởng (Nếu có):</label>
              <select 
-                value={targetObj} 
-                onChange={e => setTargetObj(e.target.value)}
-                className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors"
+                value={cert} 
+                onChange={e => setCert(e.target.value)}
+                className="w-full h-14 border-2 border-[#2c2b7c]/50 px-4 font-bold text-[#2c2b7c] bg-[#FAFAFA] focus:border-[#ed1c29] focus:outline-none transition-colors truncate text-sm"
               >
-                {Object.keys(OBJECTS).map(k => <option key={k} value={k}>{k}</option>)}
+                {Object.keys(CERTS).map(k => <option key={k} value={k}>{k}</option>)}
               </select>
           </div>
         </div>

@@ -32,13 +32,14 @@ export default function TopBar() {
 
             {/* Actions */}
             <div className="flex items-center gap-3">
-               <Link href="/tinh-diem" className="hidden sm:flex items-center gap-2 bg-[#ed1c29]/10 text-[#ed1c29] px-4 py-2.5 rounded-lg font-bold text-sm transition-colors hover:bg-[#ed1c29]/20 border border-[#ed1c29]/10 whitespace-nowrap">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
+               <Link href="/tinhdiem" className="group flex items-center gap-2 px-3 py-2 bg-[#ed1c29]/10 rounded-full hover:bg-[#ed1c29] transition-all duration-300 relative overflow-hidden">
+                <svg className="w-5 h-5 text-[#ed1c29] group-hover:text-white transition-colors relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm font-bold text-[#ed1c29] group-hover:text-white transition-colors relative z-10 whitespace-nowrap hidden sm:block">
                   Tính điểm học bạ
-               </Link>
-               <a href="/#admissions" className="bg-[#ed1c29] text-white px-5 xl:px-8 py-2.5 rounded-lg font-bold text-sm shadow-[0_4px_14px_0_rgba(237,28,41,0.39)] hover:shadow-[0_6px_20px_rgba(237,28,41,0.23)] hover:bg-[#d61723] transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                </span>
+              </Link> <a href="/#admissions" className="bg-[#ed1c29] text-white px-5 xl:px-8 py-2.5 rounded-lg font-bold text-sm shadow-[0_4px_14px_0_rgba(237,28,41,0.39)] hover:shadow-[0_6px_20px_rgba(237,28,41,0.23)] hover:bg-[#d61723] transition-all hover:-translate-y-0.5 whitespace-nowrap">
                   Đăng ký tư vấn
                </a>
             </div>
