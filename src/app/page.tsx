@@ -9,6 +9,7 @@ import ServicesSection from "@/components/ServicesSection";
 import TimelineSection from "@/components/TimelineSection";
 import FinancialSection from "@/components/FinancialSection";
 import AdmissionsSection from "@/components/AdmissionsSection";
+import AdmissionsMethodsCTA from "@/components/AdmissionsMethodsCTA";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -32,6 +33,9 @@ export default function Home() {
 
       {/* Meta & Admissions */}
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <AdmissionsMethodsCTA />
+      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      
       <TimelineSection />
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
       <FinancialSection />
