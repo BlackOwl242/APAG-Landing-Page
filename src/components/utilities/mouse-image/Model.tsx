@@ -96,7 +96,7 @@ export default function Model({ activeBranch }: ModelProps) {
   const y = useTransform(smoothMouse.y, [0, dimension.height || 1], [viewport.height / 2, -1 * viewport.height / 2]);
 
   return (
-    <motion.mesh position-x={x} position-y={y} ref={plane} scale={scale as any}>
+    <motion.mesh position-x={x} position-y={y} ref={plane as any} scale={scale as any}>
       <planeGeometry args={[1, 1, 15, 15]} />
       <shaderMaterial 
         vertexShader={vertex}
