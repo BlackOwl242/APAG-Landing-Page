@@ -1,14 +1,21 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
+
+const MouseImageDistortionScene = dynamic(
+  () => import("@/components/utilities/mouse-image/Scene"),
+  { ssr: false }
+);
 
 gsap.registerPlugin(ScrollTrigger);
 import { branches } from "@/constants/branches";
 
 export default function BranchesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [activeBranch, setActiveBranch] = useState<number | null>(null);
   
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -33,19 +40,25 @@ export default function BranchesSection() {
   }, []);
 
   return (
-    <section id="branches" ref={sectionRef} className="relative w-full py-24 bg-[#FAFAFA] border-t border-[#2c2b7c]/10 z-10 flex flex-col">
+    <section id="branches" ref={sectionRef} className="relative w-full py-24 bg-transparent border-t border-[#2c2b7c]/10 z-10 flex flex-col">
+      <MouseImageDistortionScene activeBranch={activeBranch} />
       
       {/* Header aligned Kurate style */}
-      <div className="w-full px-6 lg:px-16 mb-16 flex items-end justify-between border-b-2 border-[#2c2b7c]/20 pb-4">
+      <div className="w-full px-6 lg:px-16 mb-16 flex items-end justify-between border-b-2 border-[#2c2b7c]/20 pb-4 relative z-20">
          <h2 className="font-heading text-lg md:text-2xl font-black uppercase tracking-wider text-[#2c2b7c]">
             Các Phân Hiệu
          </h2>
          <span className="text-[10px] md:text-xs tracking-[0.2em] font-sans font-bold uppercase text-[#555]">MẠNG LƯỚI QUỐC GIA</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 w-full border-t border-[#2c2b7c]/10">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-full border-t border-[#2c2b7c]/10 relative z-20">
         {branches.map((branch, index) => (
-          <div key={index} className="branch-card group flex flex-col aspect-square md:aspect-auto md:h-[50vh] p-8 border-b border-[#2c2b7c]/10 md:border-r hover:bg-[#2c2b7c]/5 transition-colors relative cursor-default overflow-hidden">
+          <div 
+             key={index} 
+             onMouseEnter={() => setActiveBranch(index)}
+             onMouseLeave={() => setActiveBranch(null)}
+             className="branch-card group flex flex-col aspect-square md:aspect-auto md:h-[50vh] p-8 border-b border-[#2c2b7c]/10 md:border-r hover:bg-[#2c2b7c]/5 transition-colors relative cursor-default overflow-hidden z-20"
+          >
             
             <div className="flex justify-between items-start w-full relative z-10">
               <span className="font-sans font-bold text-xs text-[#555] tracking-widest uppercase">({branch.id})</span>
@@ -61,7 +74,7 @@ export default function BranchesSection() {
             </div>
 
             {/* Hover Background Accent */}
-            <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-[#ed1c29] opacity-0 group-hover:opacity-100 transition-all duration-500 m-8"></div>
+            <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-[#ed1c29] opacity-0 group-hover:opacity-100 transition-all duration-500 m-8 z-10"></div>
           </div>
         ))}
       </div>
