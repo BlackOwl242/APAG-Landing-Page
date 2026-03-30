@@ -6,34 +6,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const programsList = [
-  { code: "73444", title: "Quản trị nhân lực", isSpecialization: false },
-  { code: "73446", title: "Quản trị văn phòng", isSpecialization: false },
-  { code: "73811", title: "Luật", isSpecialization: false },
-  { code: "73811-1", title: "Chuyên ngành Thanh tra (Ngành Luật)", isSpecialization: true },
-  { code: "73111", title: "Kinh tế", isSpecialization: false },
-  { code: "73111-1", title: "Chuyên ngành Kinh tế du lịch (Ngành Kinh tế)", isSpecialization: true },
-  { code: "73125-E", title: "Quản lý nhà nước (Đào tạo 50% bằng tiếng Anh)", isSpecialization: false },
-  { code: "73125", title: "Quản lý nhà nước", isSpecialization: false },
-  { code: "73125-1", title: "Chuyên ngành Quản trị tổ chức", isSpecialization: true },
-  { code: "73125-2", title: "Chuyên ngành Quản trị địa phương", isSpecialization: true },
-  { code: "73121", title: "Chính trị học", isSpecialization: false },
-  { code: "73122", title: "Xây dựng Đảng và chính quyền nhà nước", isSpecialization: false },
-  { code: "73233", title: "Lưu trữ học", isSpecialization: false },
-  { code: "73233-1", title: "Chuyên ngành Văn thư - Lưu trữ (Lưu trữ học)", isSpecialization: true },
-  { code: "73221", title: "Thông tin - Thư viện", isSpecialization: false },
-  { code: "78113", title: "Quản trị dịch vụ du lịch và lữ hành", isSpecialization: false },
-  { code: "72942", title: "Quản lý văn hóa", isSpecialization: false },
-  { code: "72942-1", title: "Chuyên ngành Quản lý di sản văn hóa và phát triển du lịch", isSpecialization: true },
-  { code: "72940-1", title: "Chuyên ngành Văn hóa Du lịch (Văn hóa học)", isSpecialization: true },
-  { code: "72940-2", title: "Chuyên ngành Văn hóa Truyền thông (Văn hóa học)", isSpecialization: true },
-  { code: "74814", title: "Hệ thống thông tin", isSpecialization: false },
-  { code: "74814-1", title: "Chuyên ngành Hệ thống thông tin thương mại điện tử", isSpecialization: true },
-];
-
-const provincesList = [
-  "Thành phố Cần Thơ", "Thành phố Đà Nẵng", "Thành phố Hà Nội", "Thành phố Hải Phòng", "Thành phố Hồ Chí Minh", "Thành phố Huế", "Tỉnh An Giang", "Tỉnh Bắc Ninh", "Tỉnh Cà Mau", "Tỉnh Cao Bằng", "Tỉnh Điện Biên", "Tỉnh Đồng Nai", "Tỉnh Đồng Tháp", "Tỉnh Gia Lai", "Tỉnh Hà Tĩnh", "Tỉnh Hưng Yên", "Tỉnh Khánh Hoà", "Tỉnh Lai Châu", "Tỉnh Lạng Sơn", "Tỉnh Lào Cai", "Tỉnh Lâm Đồng", "Tỉnh Nghệ An", "Tỉnh Ninh Bình", "Tỉnh Phú Thọ", "Tỉnh Quảng Ngãi", "Tỉnh Quảng Ninh", "Tỉnh Quảng Trị", "Tỉnh Sơn La", "Tỉnh Tây Ninh", "Tỉnh Thái Nguyên", "Tỉnh Thanh Hoá", "Tỉnh Tuyên Quang", "Tỉnh Vĩnh Long", "Tỉnh Đắk Lắk"
-];
+import { programsList } from "@/constants/programs";
+import { provincesList } from "@/constants/provinces";
 
 export default function AdmissionsSection() {
   const containerRef = useRef<HTMLDivElement>(null);

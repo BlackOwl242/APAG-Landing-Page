@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
-import CustomCursor from "@/components/CustomCursor";
-import Preloader from "@/components/Preloader";
+import SmoothScroll from "@/components/utilities/SmoothScroll";
+import CustomCursor from "@/components/utilities/CustomCursor";
+import Preloader from "@/components/utilities/Preloader";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",

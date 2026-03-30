@@ -5,13 +5,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const branches = [
-  { id: "01", name: "TP. HỒ CHÍ MINH", desc: "Trung tâm Đào tạo và Tương tác miền Nam" },
-  { id: "02", name: "ĐÀ NẴNG", desc: "Cơ sở Đào tạo chiến lược khu vực miền Trung" },
-  { id: "03", name: "HUẾ", desc: "Viện Thuật và Hành chính vùng Cố đô" },
-  { id: "04", name: "ĐẮK LẮK", desc: "Trung tâm Đào tạo và Nghiên cứu Tây Nguyên" },
-];
+import { branches } from "@/constants/branches";
 
 export default function BranchesSection() {
   const sectionRef = useRef<HTMLElement>(null);

@@ -2,9 +2,9 @@
 
 import React, { useEffect } from "react";
 import gsap from "gsap";
-import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
-import ScoreCalculator from "@/components/ScoreCalculator";
+import TopBar from "@/components/organisms/TopBar";
+import Footer from "@/components/organisms/Footer";
+import ScoreCalculator from "@/components/organisms/ScoreCalculator";
 
 export default function TinhDiemPage() {
   useEffect(() => {

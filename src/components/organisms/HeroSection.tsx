@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
-import InteractiveGrid from "./InteractiveGrid";
-import LiquidLogo from "./LiquidLogo";
+import InteractiveGrid from "@/components/utilities/InteractiveGrid";
+import LiquidLogo from "@/components/utilities/LiquidLogo";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);

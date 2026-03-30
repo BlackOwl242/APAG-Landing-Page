@@ -1,17 +1,18 @@
-import Nav from "@/components/Nav";
-import HeroSection from "@/components/HeroSection";
-import HeadquartersSection from "@/components/HeadquartersSection";
-import BranchesSection from "@/components/BranchesSection";
-import AboutSection from "@/components/AboutSection";
-import HistorySection from "@/components/HistorySection";
-import ServicesSection from "@/components/ServicesSection";
+import Nav from "@/components/organisms/Nav";
+import HeroSection from "@/components/organisms/HeroSection";
+import HeadquartersSection from "@/components/organisms/HeadquartersSection";
+import BranchesSection from "@/components/organisms/BranchesSection";
+import AboutSection from "@/components/organisms/AboutSection";
+import HistorySection from "@/components/organisms/HistorySection";
+import ServicesSection from "@/components/organisms/ServicesSection";
 
-import TimelineSection from "@/components/TimelineSection";
-import FinancialSection from "@/components/FinancialSection";
-import AdmissionsSection from "@/components/AdmissionsSection";
-import AdmissionsMethodsCTA from "@/components/AdmissionsMethodsCTA";
-import ProgramsGroup1Section from "@/components/ProgramsGroup1Section";
-import Footer from "@/components/Footer";
+import TimelineSection from "@/components/organisms/TimelineSection";
+import FinancialSection from "@/components/organisms/FinancialSection";
+import AdmissionsSection from "@/components/organisms/AdmissionsSection";
+import AdmissionsMethodsCTA from "@/components/organisms/AdmissionsMethodsCTA";
+import ProgramsGroup1Section from "@/components/organisms/ProgramsGroup1Section";
+import Footer from "@/components/organisms/Footer";
+import { SectionDivider } from "@/components/atoms";
 
 export default function Home() {
   return (
@@ -21,11 +22,11 @@ export default function Home() {
       
       {/* Intro & Setup */}
       <HeadquartersSection />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <BranchesSection />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <AboutSection />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <HistorySection />
 
       {/* Functionality */}
@@ -35,14 +36,14 @@ export default function Home() {
       <ProgramsGroup1Section />
 
       {/* Meta & Admissions */}
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <AdmissionsMethodsCTA />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       
       <TimelineSection />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <FinancialSection />
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <SectionDivider />
       <AdmissionsSection />
       <Footer />
     </main>
