@@ -1,13 +1,58 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const programsList = [
+  { code: "73444", title: "Quản trị nhân lực", isSpecialization: false },
+  { code: "73446", title: "Quản trị văn phòng", isSpecialization: false },
+  { code: "73811", title: "Luật", isSpecialization: false },
+  { code: "73811-1", title: "Chuyên ngành Thanh tra (Ngành Luật)", isSpecialization: true },
+  { code: "73111", title: "Kinh tế", isSpecialization: false },
+  { code: "73111-1", title: "Chuyên ngành Kinh tế du lịch (Ngành Kinh tế)", isSpecialization: true },
+  { code: "73125-E", title: "Quản lý nhà nước (Đào tạo 50% bằng tiếng Anh)", isSpecialization: false },
+  { code: "73125", title: "Quản lý nhà nước", isSpecialization: false },
+  { code: "73125-1", title: "Chuyên ngành Quản trị tổ chức", isSpecialization: true },
+  { code: "73125-2", title: "Chuyên ngành Quản trị địa phương", isSpecialization: true },
+  { code: "73121", title: "Chính trị học", isSpecialization: false },
+  { code: "73122", title: "Xây dựng Đảng và chính quyền nhà nước", isSpecialization: false },
+  { code: "73233", title: "Lưu trữ học", isSpecialization: false },
+  { code: "73233-1", title: "Chuyên ngành Văn thư - Lưu trữ (Lưu trữ học)", isSpecialization: true },
+  { code: "73221", title: "Thông tin - Thư viện", isSpecialization: false },
+  { code: "78113", title: "Quản trị dịch vụ du lịch và lữ hành", isSpecialization: false },
+  { code: "72942", title: "Quản lý văn hóa", isSpecialization: false },
+  { code: "72942-1", title: "Chuyên ngành Quản lý di sản văn hóa và phát triển du lịch", isSpecialization: true },
+  { code: "72940-1", title: "Chuyên ngành Văn hóa Du lịch (Văn hóa học)", isSpecialization: true },
+  { code: "72940-2", title: "Chuyên ngành Văn hóa Truyền thông (Văn hóa học)", isSpecialization: true },
+  { code: "74814", title: "Hệ thống thông tin", isSpecialization: false },
+  { code: "74814-1", title: "Chuyên ngành Hệ thống thông tin thương mại điện tử", isSpecialization: true },
+];
+
 export default function AdmissionsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredPrograms = programsList.filter(p => 
+    p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    p.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,25 +92,28 @@ export default function AdmissionsSection() {
   }, []);
 
   return (
-    <section id="admissions" ref={containerRef} className="relative min-h-[90vh] flex flex-col justify-center items-center py-32 bg-[#FAFAFA] text-[#0E0F0F] overflow-hidden">
+    <section id="admissions" ref={containerRef} className="relative min-h-[90vh] flex flex-col justify-center items-center py-32 bg-[#FAFAFA] text-[#0E0F0F] z-20">
       
-      {/* Background Blurred Marquee */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[200vw] sm:w-[300vw] flex opacity-10 blur-[8px] pointer-events-none select-none mix-blend-multiply z-0">
-         <div className="blurred-marquee flex whitespace-nowrap">
-            {[...Array(4)].map((_, i) => (
-              <span key={i} className="font-heading text-[15vw] md:text-[200px] font-black uppercase tracking-tighter mx-4 leading-none text-black">
-                TUYỂN SINH MỞ • GHI DANH NGAY • 
-              </span>
-            ))}
-         </div>
-      </div>
+      {/* Background Elements Wrapped to Prevent Overflow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Background Blurred Marquee */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[200vw] sm:w-[300vw] flex opacity-10 blur-[8px] pointer-events-none select-none mix-blend-multiply">
+           <div className="blurred-marquee flex whitespace-nowrap">
+              {[...Array(4)].map((_, i) => (
+                <span key={i} className="font-heading text-[15vw] md:text-[200px] font-black uppercase tracking-tighter mx-4 leading-none text-black">
+                  TUYỂN SINH MỞ • GHI DANH NGAY • 
+                </span>
+              ))}
+           </div>
+        </div>
 
-      {/* SVG Squiggle Line Background Effect */}
-      <div className="absolute top-1/4 left-0 w-full h-[200px] opacity-30 pointer-events-none overflow-hidden mix-blend-multiply z-0">
-        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" className="w-[800px] sm:w-[1200px] h-[200px] opacity-30 relative">
-           <path className="squiggle-path" stroke="#000000" strokeWidth="2" d="M0 100 Q 100 0 200 100 T 400 100 T 600 100 T 800 100 T 1000 100 T 1200 100" />
-           <path className="squiggle-path" stroke="#000000" strokeWidth="1" opacity="0.5" d="M0 80 Q 100 -20 200 80 T 400 80 T 600 80 T 800 80 T 1000 80 T 1200 80" />
-        </svg>
+        {/* SVG Squiggle Line Background Effect */}
+        <div className="absolute top-1/4 left-0 w-full h-[200px] opacity-30 pointer-events-none mix-blend-multiply">
+          <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" className="w-[800px] sm:w-[1200px] h-[200px] opacity-30 relative">
+             <path className="squiggle-path" stroke="#000000" strokeWidth="2" d="M0 100 Q 100 0 200 100 T 400 100 T 600 100 T 800 100 T 1000 100 T 1200 100" />
+             <path className="squiggle-path" stroke="#000000" strokeWidth="1" opacity="0.5" d="M0 80 Q 100 -20 200 80 T 400 80 T 600 80 T 800 80 T 1000 80 T 1200 80" />
+          </svg>
+        </div>
       </div>
 
       {/* Foreground Form Container (Restored Frosted Glass) */}
@@ -142,22 +190,72 @@ export default function AdmissionsSection() {
                />
              </div>
 
-             {/* Major/Specialization (Full Width) */}
-             <div className="flex flex-col gap-2 md:col-span-2">
-               <label className="text-xs font-bold text-[#2c2b7c] uppercase tracking-wide">
-                 Ngành/Chuyên ngành quan tâm <span className="text-[#ed1c29]">*</span>
-               </label>
-               <select className="w-full bg-white/50 border border-[#2c2b7c]/20 rounded-xl px-4 py-3 text-sm text-[#2c2b7c]/80 focus:outline-none focus:border-[#2c2b7c] focus:ring-1 focus:ring-[#2c2b7c] focus:bg-white transition-all appearance-none cursor-pointer shadow-sm">
-                 <option value="">-- Lựa chọn ngành/chuyên ngành đào tạo --</option>
-                 <option value="LT">Lưu trữ học</option>
-                 <option value="QLNN">Quản lý nhà nước</option>
-                 <option value="QLNN_ANQP">Quản lý nhà nước về An ninh trật tự</option>
-                 <option value="QLCC">Quản lý công</option>
-                 <option value="XDDC">Xây dựng Đảng và chính quyền nhà nước</option>
-                 <option value="KT">Kinh tế</option>
-                 <option value="L">Luật</option>
-                 <option value="NN">Ngôn ngữ Anh</option>
-               </select>
+             {/* Major/Specialization (Full Width) Custom Dropdown */}
+             <div className="flex flex-col gap-2 md:col-span-2 relative" ref={dropdownRef}>
+                <label className="text-xs font-bold text-[#2c2b7c] uppercase tracking-wide">
+                  Ngành/Chuyên ngành quan tâm <span className="text-[#ed1c29]">*</span>
+                </label>
+                
+                <div 
+                  className={`w-full bg-white/50 border ${isOpen ? 'border-[#2c2b7c] ring-1 ring-[#2c2b7c]' : 'border-[#2c2b7c]/20'} rounded-xl px-4 py-3 text-sm transition-all shadow-sm flex items-center justify-between cursor-pointer select-none`}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <span className={selectedProgram ? "text-[#2c2b7c] font-semibold" : "text-[#2c2b7c]/60"}>
+                    {selectedProgram ? programsList.find(p => p.code === selectedProgram)?.title : "-- Lựa chọn ngành/chuyên ngành đào tạo --"}
+                  </span>
+                  <svg className={`w-4 h-4 text-[#2c2b7c] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+
+                {isOpen && (
+                  <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white/95 backdrop-blur-xl border border-[#2c2b7c]/10 rounded-xl shadow-2xl z-[100] flex flex-col overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    
+                    <div className="p-3 border-b border-[#2c2b7c]/10 bg-[#FAFAFA]">
+                      <div className="relative">
+                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2c2b7c]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input
+                          type="text"
+                          autoFocus
+                          placeholder="Nhập mã ngành hoặc tên ngành để tìm kiếm..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="w-full bg-white border border-[#2c2b7c]/20 rounded-lg pl-9 pr-4 py-2 text-sm text-[#2c2b7c] placeholder-[#2c2b7c]/40 outline-none focus:border-[#2c2b7c] focus:ring-1 focus:ring-[#2c2b7c] transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="max-h-[250px] overflow-y-auto w-full flex flex-col py-1 custom-scrollbar" data-lenis-prevent="true">
+                      {filteredPrograms.length > 0 ? (
+                        filteredPrograms.map((prog) => (
+                          <div
+                            key={prog.code}
+                            onClick={() => {
+                              setSelectedProgram(prog.code);
+                              setIsOpen(false);
+                              setSearchQuery("");
+                            }}
+                            className={`px-4 py-3 flex items-center gap-3 cursor-pointer transition-colors ${selectedProgram === prog.code ? 'bg-[#2c2b7c]/5 border-l-2 border-[#ed1c29]' : 'hover:bg-[#2c2b7c]/5 border-l-2 border-transparent'}`}
+                          >
+                            <span className="shrink-0 bg-[#FAFAFA] border border-[#2c2b7c]/10 rounded px-2 py-0.5 text-[10px] font-mono text-[#555] font-bold">
+                              {prog.code}
+                            </span>
+                            
+                            <span className={`text-sm ${prog.isSpecialization ? 'text-[#555] font-medium pl-2 border-l border-[#2c2b7c]/10' : 'text-[#2c2b7c] font-semibold'} leading-snug`}>
+                              {prog.title}
+                            </span>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="py-8 text-center text-sm text-[#555] italic">
+                          Không tìm thấy kết quả hợp lệ!
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
              </div>
            </div>
 
