@@ -27,7 +27,7 @@ export default function Model({ activeBranch }: ModelProps) {
   
   // Safe extraction for TS
   const firstTexture = textures[0];
-  const { width, height } = firstTexture.image;
+  const { width, height } = (firstTexture.image as any) || { width: 1, height: 1 };
   
   const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 
