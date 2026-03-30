@@ -17,13 +17,13 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative bg-[#FAFAFA] pt-24 pb-48 border-t border-[#2c2b7c]/10 z-10 overflow-hidden">
-      
+
       {/* Corner Brackets */}
       <div className="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-20 md:left-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-l-2 border-[#2c2b7c]/30 block opacity-50 sm:opacity-100"></div>
       <div className="absolute top-4 right-4 sm:top-10 sm:right-10 md:top-20 md:right-20 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-r-2 border-[#2c2b7c]/30 block opacity-50 sm:opacity-100"></div>
 
       <div className="max-w-[90vw] mx-auto px-6 relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
-        
+
         {/* Left Side Logo */}
         <div className="md:w-1/2">
           <div className="relative w-full md:w-[600px] h-[120px] md:h-[180px] mb-8">
@@ -49,7 +49,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm md:text-base font-bold uppercase tracking-widest text-[#2c2b7c]">
               <li><a href="#" className="hover:text-[#ed1c29] transition-colors">Facebook</a></li>
               <li><a href="#" className="hover:text-[#555] transition-colors">Instagram</a></li>
-              <li><a href="#" className="hover:text-[#555] transition-colors">YouTube</a></li>
+              <li><a href="#" className="hover:text-[#555] transition-colors">Tiktok</a></li>
             </ul>
           </div>
           <div className="col-span-2 md:col-span-1 border-t border-[#2c2b7c]/10 md:border-none pt-8 md:pt-0">

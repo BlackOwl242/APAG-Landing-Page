@@ -136,14 +136,14 @@ export default function TopBar() {
 
             {/* Actions */}
             <div className="flex items-center gap-1.5 md:gap-2 lg:gap-3">
-               <Link href="/tinhdiem" className="group flex items-center gap-1 lg:gap-2 px-2 md:px-3 lg:px-4 xl:px-5 py-2 md:py-2.5 bg-[#ed1c29]/10 rounded-lg hover:bg-[#ed1c29] transition-all duration-300 relative overflow-hidden shrink-0">
+               <a href="/tinhdiem" onClick={(e) => handlePageTransition(e, "/tinhdiem")} className="group flex items-center gap-1 lg:gap-2 px-2 md:px-3 lg:px-4 xl:px-5 py-2 md:py-2.5 bg-[#ed1c29]/10 rounded-lg hover:bg-[#ed1c29] transition-all duration-300 relative overflow-hidden shrink-0">
                 <svg className="w-4 h-4 md:w-5 md:h-5 text-[#ed1c29] group-hover:text-white transition-colors relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <span className="text-xs md:text-sm font-bold text-[#ed1c29] group-hover:text-white transition-colors relative z-10 whitespace-nowrap hidden lg:block">
                   Tính điểm học bạ
                 </span>
-              </Link> 
+              </a> 
               <a href="/#admissions" onClick={(e) => handlePageTransition(e, "/#admissions")} className="bg-[#ed1c29] text-white px-3 md:px-4 lg:px-5 xl:px-8 py-2 md:py-2.5 rounded-lg font-bold text-[11px] lg:text-sm shadow-[0_4px_14px_0_rgba(237,28,41,0.39)] hover:shadow-[0_6px_20px_rgba(237,28,41,0.23)] hover:bg-[#d61723] transition-all hover:-translate-y-0.5 whitespace-nowrap shrink-0">
                   Đăng ký tư vấn
                </a>
