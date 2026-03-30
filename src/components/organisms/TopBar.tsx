@@ -78,7 +78,7 @@ export default function TopBar() {
               </svg>
             </a>
             <a href="/" onClick={(e) => handlePageTransition(e, "/")} className="flex items-center hover:-translate-y-1 transition-transform group cursor-pointer shrink-0">
-               <div className="relative w-24 sm:w-28 md:w-32 lg:w-44 xl:w-56 h-7 sm:h-8 md:h-10 xl:h-12 flex-shrink-0">
+               <div className="relative w-28 sm:w-32 md:w-40 lg:w-52 xl:w-64 h-8 sm:h-10 md:h-12 xl:h-14 flex-shrink-0">
                   <img src="/logos/Logo2.png" alt="APAG Logo" className="object-contain object-left w-full h-full" />
                </div>
             </a>
