@@ -31,18 +31,30 @@ const programsList = [
   { code: "74814-1", title: "Chuyên ngành Hệ thống thông tin thương mại điện tử", isSpecialization: true },
 ];
 
+const provincesList = [
+  "Thành phố Cần Thơ", "Thành phố Đà Nẵng", "Thành phố Hà Nội", "Thành phố Hải Phòng", "Thành phố Hồ Chí Minh", "Thành phố Huế", "Tỉnh An Giang", "Tỉnh Bắc Ninh", "Tỉnh Cà Mau", "Tỉnh Cao Bằng", "Tỉnh Điện Biên", "Tỉnh Đồng Nai", "Tỉnh Đồng Tháp", "Tỉnh Gia Lai", "Tỉnh Hà Tĩnh", "Tỉnh Hưng Yên", "Tỉnh Khánh Hoà", "Tỉnh Lai Châu", "Tỉnh Lạng Sơn", "Tỉnh Lào Cai", "Tỉnh Lâm Đồng", "Tỉnh Nghệ An", "Tỉnh Ninh Bình", "Tỉnh Phú Thọ", "Tỉnh Quảng Ngãi", "Tỉnh Quảng Ninh", "Tỉnh Quảng Trị", "Tỉnh Sơn La", "Tỉnh Tây Ninh", "Tỉnh Thái Nguyên", "Tỉnh Thanh Hoá", "Tỉnh Tuyên Quang", "Tỉnh Vĩnh Long", "Tỉnh Đắk Lắk"
+];
+
 export default function AdmissionsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownProvinceRef = useRef<HTMLDivElement>(null);
   
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
 
+  const [isOpenProvince, setIsOpenProvince] = useState(false);
+  const [searchProvinceQuery, setSearchProvinceQuery] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+      }
+      if (dropdownProvinceRef.current && !dropdownProvinceRef.current.contains(event.target as Node)) {
+        setIsOpenProvince(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -52,6 +64,10 @@ export default function AdmissionsSection() {
   const filteredPrograms = programsList.filter(p => 
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
     p.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredProvinces = provincesList.filter(p =>
+    p.toLowerCase().includes(searchProvinceQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -152,18 +168,68 @@ export default function AdmissionsSection() {
                />
              </div>
 
-             {/* City/Province */}
-             <div className="flex flex-col gap-2">
+             {/* City/Province Custom Dropdown */}
+             <div className="flex flex-col gap-2 relative" ref={dropdownProvinceRef}>
                <label className="text-xs font-bold text-[#2c2b7c] uppercase tracking-wide">
                  Tỉnh/Thành phố <span className="text-[#ed1c29]">*</span>
                </label>
-               <select className="w-full bg-white/50 border border-[#2c2b7c]/20 rounded-xl px-4 py-3 text-sm text-[#2c2b7c]/80 focus:outline-none focus:border-[#2c2b7c] focus:ring-1 focus:ring-[#2c2b7c] focus:bg-white transition-all appearance-none cursor-pointer shadow-sm">
-                 <option value="">-- Chọn Tỉnh/Thành phố --</option>
-                 <option value="HN">Hà Nội</option>
-                 <option value="HCM">TP. Hồ Chí Minh</option>
-                 <option value="DN">Đà Nẵng</option>
-                 <option value="OTHER">Tỉnh/Thành phố khác</option>
-               </select>
+               
+               <div 
+                 className={`w-full bg-white/50 border ${isOpenProvince ? 'border-[#2c2b7c] ring-1 ring-[#2c2b7c]' : 'border-[#2c2b7c]/20'} rounded-xl px-4 py-3 text-sm transition-all shadow-sm flex items-center justify-between cursor-pointer select-none`}
+                 onClick={() => setIsOpenProvince(!isOpenProvince)}
+               >
+                 <span className={selectedProvince ? "text-[#2c2b7c] font-semibold" : "text-[#2c2b7c]/60"}>
+                   {selectedProvince || "-- Chọn Tỉnh/Thành phố --"}
+                 </span>
+                 <svg className={`w-4 h-4 text-[#2c2b7c] transition-transform duration-300 ${isOpenProvince ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                 </svg>
+               </div>
+
+               {isOpenProvince && (
+                 <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white/95 backdrop-blur-xl border border-[#2c2b7c]/10 rounded-xl shadow-2xl z-[100] flex flex-col overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                   
+                   <div className="p-3 border-b border-[#2c2b7c]/10 bg-[#FAFAFA]">
+                     <div className="relative">
+                       <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2c2b7c]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                       </svg>
+                       <input
+                         type="text"
+                         autoFocus
+                         placeholder="Tìm kiếm tỉnh/thành phố..."
+                         value={searchProvinceQuery}
+                         onChange={(e) => setSearchProvinceQuery(e.target.value)}
+                         className="w-full bg-white border border-[#2c2b7c]/20 rounded-lg pl-9 pr-4 py-2 text-sm text-[#2c2b7c] placeholder-[#2c2b7c]/40 outline-none focus:border-[#2c2b7c] focus:ring-1 focus:ring-[#2c2b7c] transition-all"
+                       />
+                     </div>
+                   </div>
+
+                   <div className="max-h-[250px] overflow-y-auto w-full flex flex-col py-1 custom-scrollbar" data-lenis-prevent="true">
+                     {filteredProvinces.length > 0 ? (
+                       filteredProvinces.map((prov) => (
+                         <div
+                           key={prov}
+                           onClick={() => {
+                             setSelectedProvince(prov);
+                             setIsOpenProvince(false);
+                             setSearchProvinceQuery("");
+                           }}
+                           className={`px-4 py-3 flex items-center gap-3 cursor-pointer transition-colors ${selectedProvince === prov ? 'bg-[#2c2b7c]/5 border-l-2 border-[#ed1c29]' : 'hover:bg-[#2c2b7c]/5 border-l-2 border-transparent'}`}
+                         >
+                           <span className="text-sm text-[#2c2b7c] font-semibold leading-snug">
+                             {prov}
+                           </span>
+                         </div>
+                       ))
+                     ) : (
+                       <div className="py-8 text-center text-sm text-[#555] italic">
+                         Không tìm thấy tỉnh/thành phố!
+                       </div>
+                     )}
+                   </div>
+                 </div>
+               )}
              </div>
 
              {/* Phone */}
