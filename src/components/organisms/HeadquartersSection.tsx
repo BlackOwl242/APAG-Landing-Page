@@ -83,7 +83,7 @@ export default function HeadquartersSection() {
         {/* Right Side Image Block */}
         <div className="lg:w-1/2 flex justify-center w-full relative hq-image">
            <div className="relative w-full aspect-[4/5] md:aspect-square lg:aspect-[3/4] max-w-[600px] bg-[#E5E5E5] rounded-sm overflow-hidden shadow-2xl group">
-             <Image src="/images/building.png" alt="APAG Headquarters" fill className="object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
+             <Image src="/images/z7673236417593_127ca518fa20ffc595be1e69b232adb7.jpg" alt="APAG Headquarters" fill className="object-cover opacity-95 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out" />
              <div className="absolute inset-0 border-[0.5rem] border-[#FAFAFA]/50 pointer-events-none"></div>
              
              {/* Corner Accents */}

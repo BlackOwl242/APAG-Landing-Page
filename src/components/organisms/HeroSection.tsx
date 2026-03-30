@@ -56,12 +56,14 @@ export default function HeroSection() {
       // Stacked cards hover spread (Kurate style - fan out from bottom)
       const cards = gsap.utils.toArray(".stacked-card");
       const stackedContainer = document.querySelector(".stacked-container");
-      
+
       if (stackedContainer) {
         stackedContainer.addEventListener("mouseenter", () => {
-          gsap.to(cards[0] as Element, { rotation: -18, xPercent: -35, yPercent: 5, duration: 0.8, ease: "power3.out" });
-          gsap.to(cards[1] as Element, { rotation: 18, xPercent: 35, yPercent: 5, duration: 0.8, ease: "power3.out" });
-          gsap.to(cards[2] as Element, { yPercent: -2, scale: 1.02, duration: 0.8, ease: "power3.out" });
+          const isMobile = window.innerWidth < 768;
+          const spreadX = isMobile ? 55 : 100;
+          gsap.to(cards[0] as Element, { rotation: -10, xPercent: -spreadX, yPercent: 4, duration: 0.8, ease: "power3.out" });
+          gsap.to(cards[1] as Element, { rotation: 10, xPercent: spreadX, yPercent: 4, duration: 0.8, ease: "power3.out" });
+          gsap.to(cards[2] as Element, { yPercent: -2, scale: 1.05, duration: 0.8, ease: "power3.out" });
         });
         stackedContainer.addEventListener("mouseleave", () => {
           gsap.to(cards[0] as Element, { rotation: -6, xPercent: 0, yPercent: 0, duration: 0.8, ease: "power3.out" });
@@ -75,24 +77,35 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex flex-col items-center overflow-x-hidden px-6 pt-[25vh] md:pt-[15vh] pb-[20vh] w-full">
-      
+    <section ref={containerRef} className="relative min-h-screen flex flex-col items-center px-6 pt-[25vh] md:pt-[15vh] pb-[20vh] w-full">
+
       {/* Background shape mimicking subtle WebGL glow for a light theme */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] bg-gradient-to-tr from-[#E5E5E5] to-[#F5F5F5] blur-[150px] rounded-full pointer-events-none opacity-60 -z-10" />
 
       <InteractiveGrid />
 
       {/* Top Left Corner */}
-      <div className="absolute top-4 md:top-8 left-4 md:left-8 z-20 flex flex-col justify-center items-start hero-left h-8 md:h-12">
-         <div className="relative w-32 md:w-56 h-8 md:h-12">
-            <Image src="/logos/Logo2.png" alt="APAG Top Logo" fill className="object-contain object-left" priority />
-         </div>
+      <div className="absolute top-4 md:top-8 left-4 md:left-8 z-[100] flex flex-col justify-center items-start hero-left h-8 md:h-12">
+        <div className="relative w-32 md:w-56 h-8 md:h-12">
+          <Image src="/logos/Logo2.png" alt="APAG Top Logo" fill className="object-contain object-left" priority />
+        </div>
       </div>
 
       {/* Vertical Text & Portrait Left */}
-      <div className="absolute left-4 md:left-10 lg:left-16 top-[30vh] sm:top-[35vh] md:top-[40vh] lg:top-[35vh] -translate-y-1/2 z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
-        <div className="relative w-10 md:w-16 h-12 md:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
-          <Image src="/images/portrait.png" alt="Student" fill className="object-cover opacity-90" />
+      <div className="absolute left-4 md:left-8 lg:left-12 top-[25vh] md:top-[30vh] lg:top-[35vh] z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
+        <div className="w-12 md:w-20 h-16 md:h-28 z-50 group cursor-pointer">
+          <div 
+            className="relative w-full h-full bg-[#E5E5E5] shadow-lg rounded-md origin-top-left will-change-transform group-hover:scale-[1.25] md:group-hover:scale-[1.5] group-hover:shadow-2xl"
+            style={{ transition: "all 0.8s ease-in-out" }}
+          >
+            <Image 
+              src="/images/DSC07417.jpg" 
+              alt="Student" 
+              fill 
+              className="object-cover object-right-top rounded-md opacity-70 group-hover:opacity-100" 
+              style={{ transition: "opacity 0.8s ease-in-out" }}
+            />
+          </div>
         </div>
         <div className="h-6 md:h-12 w-[1px] md:w-[2px] bg-[#2c2b7c]/20"></div>
         <p className="[writing-mode:vertical-lr] rotate-180 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#555]">
@@ -114,8 +127,19 @@ export default function HeroSection() {
           Chuẩn mực quốc tế
         </p>
         <div className="h-[1px] md:h-[2px] w-6 md:w-12 bg-[#2c2b7c]/20"></div>
-        <div className="relative w-20 md:w-32 h-12 md:h-20 overflow-hidden bg-[#E5E5E5] shadow-lg rounded-sm grayscale">
-           <Image src="/images/building.png" alt="University" fill className="object-cover opacity-90" />
+        <div className="w-20 md:w-32 h-12 md:h-20 z-50 group cursor-pointer">
+          <div
+            className="relative w-full h-full bg-[#E5E5E5] shadow-lg rounded-md origin-right will-change-transform group-hover:scale-[1.5] md:group-hover:scale-[2] group-hover:shadow-2xl"
+            style={{ transition: "all 0.8s ease-in-out" }}
+          >
+            <Image
+              src="/images/DSC07071.jpg"
+              alt="University"
+              fill
+              className="object-cover rounded-md opacity-70 group-hover:opacity-100"
+              style={{ transition: "opacity 0.8s ease-in-out" }}
+            />
+          </div>
         </div>
       </div>
 
@@ -163,35 +187,35 @@ export default function HeroSection() {
       {/* Bottom Center - Stacked Cards */}
       <div className="w-full flex justify-center items-center relative mt-12 sm:mt-16 md:mt-20 z-30 hero-up pointer-events-auto">
         <div className="flex flex-col items-center justify-center w-full max-w-[1000px] mx-auto">
-          
+
           {/* Massive Card Container */}
           <div className="stacked-container relative w-[60vw] h-[85vw] sm:w-[350px] sm:h-[480px] lg:w-[450px] lg:h-[620px] cursor-pointer flex justify-center perspective-[1000px] group">
             {/* Card 3 (Back) */}
             <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm p-1 -rotate-6 shadow-md z-0 flex items-center justify-center origin-bottom will-change-transform">
-               <div className="relative w-full h-full grayscale opacity-60 overflow-hidden">
-                  <Image src="/images/building.png" alt="Building" fill className="object-cover" />
-               </div>
+              <div className="relative w-full h-full opacity-80 overflow-hidden">
+                <Image src="/images/2D3A4667.JPG" alt="Portrait Left" fill className="object-cover" />
+              </div>
             </div>
             {/* Card 2 (Middle) */}
             <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm p-1 rotate-3 shadow-lg z-[5] flex items-center justify-center origin-bottom will-change-transform">
-               <div className="relative w-full h-full grayscale opacity-70 overflow-hidden">
-                  <Image src="/images/portrait.png" alt="Portrait" fill className="object-cover" />
-               </div>
+              <div className="relative w-full h-full opacity-90 overflow-hidden">
+                <Image src="/images/tcbc-6131.jpg" alt="Portrait" fill className="object-cover" />
+              </div>
             </div>
             {/* Card 1 (Front) */}
             <div className="stacked-card absolute inset-0 bg-[#FAFAFA] border border-black/20 rounded-sm z-10 p-2 flex items-center justify-center shadow-2xl origin-bottom will-change-transform">
-              <div className="relative w-full h-full grayscale-[0.2] overflow-hidden">
-                 <Image src="/images/portrait.png" alt="Student" fill className="object-cover" />
+              <div className="relative w-full h-full overflow-hidden">
+                <Image src="/images/tcbc-6547.jpg" alt="Student" fill className="object-cover" />
               </div>
             </div>
           </div>
 
           {/* Minimal Down Arrow */}
           <div className="flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-opacity mt-10 md:mt-16 w-full">
-             <div className="w-[2px] h-12 bg-gradient-to-b from-transparent to-[#ed1c29] mb-2"></div>
-             <svg className="w-5 h-5 text-[#ed1c29]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-             </svg>
+            <div className="w-[2px] h-12 bg-gradient-to-b from-transparent to-[#ed1c29] mb-2"></div>
+            <svg className="w-5 h-5 text-[#ed1c29]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
           </div>
 
         </div>
