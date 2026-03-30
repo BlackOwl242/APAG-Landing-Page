@@ -169,15 +169,15 @@ export default function AboutSection() {
               </h3>
               <div className="flex flex-col gap-0 border-t border-[#2c2b7c]/10 mt-2">
                  <div className="flex items-center gap-6 py-5 border-b border-[#2c2b7c]/10 group hover:bg-[#2c2b7c]/5 transition-colors">
-                    <span className="font-heading text-3xl font-black text-[#2c2b7c]/20 group-hover:text-[#ed1c29] transition-colors w-12 text-center">01</span>
+                    <span className="font-heading text-3xl font-black text-[#ed1c29] md:text-[#2c2b7c]/20 md:group-hover:text-[#ed1c29] transition-colors w-12 text-center">01</span>
                     <h4 className="font-heading text-lg md:text-xl font-bold text-[#2c2b7c] uppercase tracking-wide">Trí tuệ</h4>
                  </div>
                  <div className="flex items-center gap-6 py-5 border-b border-[#2c2b7c]/10 group hover:bg-[#2c2b7c]/5 transition-colors">
-                    <span className="font-heading text-3xl font-black text-[#2c2b7c]/20 group-hover:text-[#ed1c29] transition-colors w-12 text-center">02</span>
+                    <span className="font-heading text-3xl font-black text-[#ed1c29] md:text-[#2c2b7c]/20 md:group-hover:text-[#ed1c29] transition-colors w-12 text-center">02</span>
                     <h4 className="font-heading text-lg md:text-xl font-bold text-[#2c2b7c] uppercase tracking-wide">Chất lượng</h4>
                  </div>
                  <div className="flex items-center gap-6 py-5 border-b border-[#2c2b7c]/10 group hover:bg-[#2c2b7c]/5 transition-colors">
-                    <span className="font-heading text-3xl font-black text-[#2c2b7c]/20 group-hover:text-[#ed1c29] transition-colors w-12 text-center">03</span>
+                    <span className="font-heading text-3xl font-black text-[#ed1c29] md:text-[#2c2b7c]/20 md:group-hover:text-[#ed1c29] transition-colors w-12 text-center">03</span>
                     <h4 className="font-heading text-lg md:text-xl font-bold text-[#2c2b7c] uppercase tracking-wide">Hiện đại</h4>
                  </div>
               </div>

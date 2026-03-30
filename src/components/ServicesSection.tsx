@@ -97,7 +97,7 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="relative w-full py-24 bg-[#FAFAFA] border-t border-[#2c2b7c]/10 z-10 flex flex-col">
+    <section id="services" ref={sectionRef} className="relative w-full py-0 bg-[#FAFAFA] border-t border-[#2c2b7c]/10 z-10 flex flex-col">
       <div className="w-full flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-[#2c2b7c]/10 border-b border-[#2c2b7c]/10">
         
         {services.map((service, index) => (
@@ -105,7 +105,7 @@ export default function ServicesSection() {
             
             <div className="flex justify-between items-start w-full relative z-10">
               <span className="font-sans text-xs font-bold text-[#555] tracking-widest uppercase">({service.id})</span>
-              <svg className="w-6 h-6 text-[#2c2b7c] opacity-50 group-hover:text-[#ed1c29] group-hover:opacity-100 group-hover:rotate-45 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-6 h-6 text-[#ed1c29] md:text-[#2c2b7c] md:opacity-50 md:group-hover:text-[#ed1c29] md:group-hover:opacity-100 md:group-hover:rotate-45 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </div>
@@ -115,7 +115,7 @@ export default function ServicesSection() {
                 <h3 className="font-heading text-[clamp(1.8rem,7vw,4rem)] font-black uppercase tracking-tighter text-[#2c2b7c] leading-[1.1] break-words">
                   {service.title}
                 </h3>
-                <span className="font-heading text-[clamp(1.8rem,7vw,4rem)] font-black uppercase tracking-tighter text-[#888] leading-[1.1] group-hover:text-[#ed1c29] transition-colors duration-500">
+                <span className="font-heading text-[clamp(1.8rem,7vw,4rem)] font-black uppercase tracking-tighter text-[#ed1c29] md:text-[#888] leading-[1.1] md:group-hover:text-[#ed1c29] transition-colors duration-500">
                   {service.subtitle}
                 </span>
               </div>

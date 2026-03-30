@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import HeadquartersSection from "@/components/HeadquartersSection";
 import BranchesSection from "@/components/BranchesSection";
 import AboutSection from "@/components/AboutSection";
+import HistorySection from "@/components/HistorySection";
 import ServicesSection from "@/components/ServicesSection";
 
 import TimelineSection from "@/components/TimelineSection";
@@ -24,13 +25,13 @@ export default function Home() {
       <BranchesSection />
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
       <AboutSection />
-      
-      {/* Functionality */}
       <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
+      <HistorySection />
+
+      {/* Functionality */}
       <ServicesSection />
       
       {/* Academic Programs & Target Quotas */}
-      <div className="w-full h-[clamp(2rem,6vw,5rem)] bg-[#FAFAFA]" />
       <ProgramsGroup1Section />
 
       {/* Meta & Admissions */}

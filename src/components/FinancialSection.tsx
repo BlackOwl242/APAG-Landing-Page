@@ -75,7 +75,7 @@ export default function FinancialSection() {
                <div className="w-8 h-[2px] bg-[#ed1c29]/50"></div>
                <span className="text-xs font-bold tracking-[0.2em] font-sans uppercase text-[#555]">Ký túc xá</span>
             </div>
-            <h3 className="font-heading text-[clamp(3rem,12vw,120px)] font-black text-transparent font-outline uppercase tracking-tighter leading-[1.0] cursor-default mb-6 break-words">
+            <h3 className="font-heading text-[clamp(3rem,12vw,120px)] font-black text-[#2c2b7c] uppercase tracking-tighter leading-[1.0] cursor-default mb-6 break-words">
               FREE
             </h3>
             <ul className="text-sm md:text-base font-semibold text-[#555] space-y-4 max-w-md list-disc list-inside text-balance">

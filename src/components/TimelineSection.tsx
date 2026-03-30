@@ -65,7 +65,7 @@ export default function TimelineSection() {
         {timelineSteps.map((step, index) => (
           <div key={index} className="timeline-item flex flex-col relative w-full">
             <span className="text-[#555] font-sans font-bold text-xs uppercase tracking-[0.3em] mb-4">Phase ({step.id})</span>
-            <h3 className="font-heading text-[clamp(2.5rem,8vw,90px)] font-black text-transparent font-outline hover:text-[#ed1c29] transition-colors duration-500 uppercase tracking-tighter leading-[1.0] mb-8 cursor-default break-words">
+            <h3 className="font-heading text-[clamp(2.5rem,8vw,90px)] font-black text-[#ed1c29] md:text-transparent md:font-outline md:hover:text-[#ed1c29] transition-colors duration-500 uppercase tracking-tighter leading-[1.0] mb-8 cursor-default break-words">
               {step.date}
             </h3>
             <div className="flex flex-col gap-2 pl-4 md:pl-8 border-l-2 border-[#ed1c29]/50">
