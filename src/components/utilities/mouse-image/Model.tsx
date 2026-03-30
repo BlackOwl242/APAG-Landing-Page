@@ -23,10 +23,10 @@ export default function Model({ activeBranch }: ModelProps) {
   const dimension = useDimension();
   const mouse = useMouse();
   const opacity = useMotionValue(0);
-  const textures = useTexture(images);
+  const textures = useTexture(images) as THREE.Texture[];
   
   // Safe extraction for TS
-  const firstTexture = Array.isArray(textures) ? textures[0] : textures;
+  const firstTexture = textures[0];
   const { width, height } = firstTexture.image;
   
   const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
