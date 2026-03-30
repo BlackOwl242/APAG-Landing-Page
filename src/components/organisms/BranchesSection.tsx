@@ -43,7 +43,7 @@ export default function BranchesSection() {
          <span className="text-[10px] md:text-xs tracking-[0.2em] font-sans font-bold uppercase text-[#555]">MẠNG LƯỚI QUỐC GIA</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full border-t border-[#2c2b7c]/10">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-full border-t border-[#2c2b7c]/10">
         {branches.map((branch, index) => (
           <div key={index} className="branch-card group flex flex-col aspect-square md:aspect-auto md:h-[50vh] p-8 border-b border-[#2c2b7c]/10 md:border-r hover:bg-[#2c2b7c]/5 transition-colors relative cursor-default overflow-hidden">
             

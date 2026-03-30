@@ -79,6 +79,23 @@ export default function HeroSection() {
   return (
     <section ref={containerRef} className="relative min-h-screen flex flex-col items-center px-6 pt-[25vh] md:pt-[15vh] pb-[20vh] w-full">
 
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes drawStroke {
+          from { stroke-dashoffset: 1500; }
+          to { stroke-dashoffset: 0; }
+        }
+        .doodle-path {
+          stroke-dasharray: 1500;
+          stroke-dashoffset: 1500;
+          animation: drawStroke 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1200 { animation-delay: 1.2s; }
+        .delay-1500 { animation-delay: 1.5s; }
+      `}} />
+
       {/* Background shape mimicking subtle WebGL glow for a light theme */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] bg-gradient-to-tr from-[#E5E5E5] to-[#F5F5F5] blur-[150px] rounded-full pointer-events-none opacity-60 -z-10" />
 
@@ -94,15 +111,15 @@ export default function HeroSection() {
       {/* Vertical Text & Portrait Left */}
       <div className="absolute left-4 md:left-8 lg:left-12 top-[25vh] md:top-[30vh] lg:top-[35vh] z-20 flex flex-col items-center gap-4 md:gap-8 hero-left">
         <div className="w-12 md:w-20 h-16 md:h-28 z-50 group cursor-pointer">
-          <div 
+          <div
             className="relative w-full h-full bg-[#E5E5E5] shadow-lg rounded-md origin-top-left will-change-transform group-hover:scale-[1.25] md:group-hover:scale-[1.5] group-hover:shadow-2xl"
             style={{ transition: "all 0.8s ease-in-out" }}
           >
-            <Image 
-              src="/images/DSC07417.jpg" 
-              alt="Student" 
-              fill 
-              className="object-cover object-right-top rounded-md opacity-70 group-hover:opacity-100" 
+            <Image
+              src="/images/DSC07417.jpg"
+              alt="Student"
+              fill
+              className="object-cover object-right-top rounded-md opacity-70 group-hover:opacity-100"
               style={{ transition: "opacity 0.8s ease-in-out" }}
             />
           </div>
@@ -159,7 +176,13 @@ export default function HeroSection() {
         <p className="text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#555] mb-4 md:mb-6">
           Hạn nộp hồ sơ xét tuyển đợt 1
         </p>
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        <div className="relative flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+          {/* Hand-drawn Oval Doodle around Countdown */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[150%] md:h-[180%] pointer-events-none z-10">
+            <svg viewBox="0 0 500 100" fill="none" preserveAspectRatio="none" className="w-full h-full text-[#ed1c29] opacity-70 overflow-visible">
+              <path className="doodle-path delay-800" d="M250,5 C450,0, 495,20, 490,50 C480,95, 250,95, 150,90 C50,85, 5,70, 10,50 C15,20, 150,0, 250,5 C350,10, 400,20, 420,40" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            </svg>
+          </div>
           {[
             { value: countdown.days, label: "Ngày" },
             { value: countdown.hours, label: "Giờ" },
