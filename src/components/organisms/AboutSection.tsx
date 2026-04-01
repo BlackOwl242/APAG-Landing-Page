@@ -1,18 +1,30 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Custom pointer tracking for mask effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const maskX = useSpring(mouseX, springConfig);
+  const maskY = useSpring(mouseY, springConfig);
+  const maskSizeVal = useSpring(0, springConfig);
 
   useEffect(() => {
+    // Reveal the massive text line by line
     const ctx = gsap.context(() => {
-      // Reveal the massive text line by line
       gsap.fromTo(
         ".about-word",
         { y: 100, opacity: 0, rotate: 5 },
@@ -30,42 +42,30 @@ export default function AboutSection() {
         }
       );
 
-      // Expand pill images (if any)
-      gsap.fromTo(
-        ".about-pill",
-        { width: 0, opacity: 0 },
-        {
-          width: "120px",
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-          },
-        }
-      );
-
-      // Reveal new content blocks
-      gsap.fromTo(
-        ".new-content-block",
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".new-content-grid",
-            start: "top 75%",
-          },
-        }
-      );
+      gsap.fromTo(".about-pill", { width: 0, opacity: 0 }, { width: "120px", opacity: 1, duration: 1.2, ease: "power3.inOut", scrollTrigger: { trigger: sectionRef.current, start: "top 60%" } });
+      gsap.fromTo(".new-content-block", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out", scrollTrigger: { trigger: ".new-content-grid", start: "top 75%" } });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    maskSizeVal.set(isHovered ? 400 : 40);
+  }, [isHovered, maskSizeVal]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        mouseX.set(e.clientX - rect.left);
+        mouseY.set(e.clientY - rect.top);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const maskImage = useMotionTemplate`radial-gradient(${maskSizeVal}px circle at ${maskX}px ${maskY}px, black 25%, transparent 80%)`;
 
   return (
     <section id="about" ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center py-40 px-4 md:px-12 bg-[#FAFAFA]">
@@ -84,59 +84,151 @@ export default function AboutSection() {
           <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-[#555]">(01)</span>
         </div>
 
-        {/* Massive Inline Typography */}
-        <div ref={textRef} className="font-heading text-[clamp(1.5rem,4.5vw,60px)] lg:text-[70px] font-black leading-[1.3] text-[#2c2b7c] tracking-tighter w-full max-w-full">
-
-          <span className="whitespace-nowrap relative inline-block mr-3">
-            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">KIẾN</span>
-            <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">TẠO</span>
-            <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
-          </span>
-
-          <span className="whitespace-nowrap inline-block mr-4 md:mr-6 group cursor-default">
-            <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">TRI</span>
-            <span className="about-word inline-block p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">THỨC</span>
-          </span>
-
-          <span className="whitespace-nowrap inline-block mr-3">
-            <span className="about-word inline-block mr-4 md:mr-6 text-[#2c2b7c]">—</span>
-            <span className="relative inline-block mr-2 md:mr-3">
-              <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">ĐỔI</span>
-              <span className="about-word inline-block text-[#2c2b7c]">MỚI</span>
+        {/* Massive Inline Typography with Mask Effect */}
+        <div ref={containerRef} className="relative w-full max-w-full font-heading text-[clamp(1.5rem,4.5vw,60px)] lg:text-[70px] font-black leading-[1.3] text-[#2c2b7c] tracking-tighter">
+          
+          {/* BOTTOM LAYER (Base text) */}
+          <div ref={textRef} className="w-full relative z-0">
+            {/* KIẾN TẠO */}
+            <span 
+              className="whitespace-nowrap relative inline-block mr-3 cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">KIẾN</span>
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TẠO</span>
               <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
             </span>
-          </span>
 
-          <span className="whitespace-nowrap inline-block mr-4 md:mr-6 group cursor-default">
-            <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">SÁNG</span>
-            <span className="about-word inline-block p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">TẠO</span>
-          </span>
-
-          <span className="whitespace-nowrap inline-block mr-3">
-            <span className="about-word inline-block mr-4 md:mr-6 text-[#2c2b7c]">—</span>
-            <span className="relative inline-block mr-2 md:mr-3">
-              <span className="about-word inline-block mr-2 md:mr-3 text-[#2c2b7c]">TRÁCH</span>
-              <span className="about-word inline-block text-[#2c2b7c]">NHIỆM</span>
-              <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
+            {/* TRI THỨC */}
+            <span 
+              className="whitespace-nowrap inline-block mr-4 md:mr-6 cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>TRI</span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>THỨC</span>
             </span>
-          </span>
 
-          <span className="whitespace-nowrap inline-flex items-stretch group cursor-default">
-            <span className="about-word inline-flex items-baseline mr-2 md:mr-3">
-              <span className="p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">QU</span>
-              <span className="relative inline-flex items-center justify-center shrink-0">
-                <span className="invisible p-[0.3em] -m-[0.3em]">Ố</span>
-                <span className="absolute inset-[-0.3em] flex items-center justify-center opacity-100 group-hover:opacity-0 group-hover:scale-50 transition-all duration-[600ms] ease-out bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom bg-clip-text text-transparent">Ố</span>
-                <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-[360deg] transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] z-10">
-                  <svg viewBox="0 2 22 22" fill="#FFCF00">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
-                </div>
+            {/* ĐỔI MỚI */}
+            <span 
+              className="whitespace-nowrap inline-block mr-3 cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="relative inline-block mr-2 md:mr-3">
+                <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">ĐỔI</span>
+                <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">MỚI</span>
+                <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
               </span>
-              <span className="p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">C</span>
             </span>
-            <span className="about-word inline-block p-[0.3em] -m-[0.3em] bg-gradient-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-[length:100%_250%] bg-top group-hover:bg-bottom transition-all duration-[600ms] ease-out bg-clip-text text-transparent">GIA</span>
-          </span>
+
+            {/* SÁNG TẠO */}
+            <span 
+              className="whitespace-nowrap inline-block mr-4 md:mr-6 cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>SÁNG</span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>TẠO</span>
+            </span>
+
+            {/* TRÁCH NHIỆM */}
+            <span 
+              className="whitespace-nowrap inline-block mr-3 cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="relative inline-block mr-2 md:mr-3">
+                <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TRÁCH</span>
+                <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">NHIỆM</span>
+                <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
+              </span>
+            </span>
+
+            {/* QUỐC GIA */}
+            <span 
+              className="whitespace-nowrap inline-flex items-stretch cursor-default"
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span className="about-word inline-flex items-baseline mr-2 md:mr-3">
+                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>QU</span>
+                <span className="relative inline-flex items-center justify-center shrink-0">
+                  <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>Ố</span>
+                </span>
+                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>C</span>
+              </span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>GIA</span>
+            </span>
+          </div>
+
+          {/* TOP LAYER (Masked Glow Overlay) */}
+          <motion.div 
+            className="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
+            style={{ 
+              WebkitMaskImage: maskImage, 
+              maskImage: maskImage 
+            }}
+          >
+            {/* KIẾN TẠO */}
+            <span className="whitespace-nowrap relative inline-block mr-3 cursor-default">
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">KIẾN</span>
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TẠO</span>
+              <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50"></div>
+            </span>
+
+            {/* TRI THỨC */}
+            <span className="whitespace-nowrap inline-block mr-4 md:mr-6 cursor-default">
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(237,28,41,0.5)]">TRI</span>
+              <span className="inline-block p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(237,28,41,0.5)]">THỨC</span>
+            </span>
+
+            {/* ĐỔI MỚI */}
+            <span className="whitespace-nowrap inline-block mr-3 cursor-default">
+              <span className="inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="relative inline-block mr-2 md:mr-3">
+                <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">ĐỔI</span>
+                <span className="inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">MỚI</span>
+                <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50"></div>
+              </span>
+            </span>
+
+            {/* SÁNG TẠO */}
+            <span className="whitespace-nowrap inline-block mr-4 md:mr-6 cursor-default">
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(237,28,41,0.5)]">SÁNG</span>
+              <span className="inline-block p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(237,28,41,0.5)]">TẠO</span>
+            </span>
+
+            {/* TRÁCH NHIỆM */}
+            <span className="whitespace-nowrap inline-block mr-3 cursor-default">
+              <span className="inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="relative inline-block mr-2 md:mr-3">
+                <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TRÁCH</span>
+                <span className="inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">NHIỆM</span>
+                <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50"></div>
+              </span>
+            </span>
+
+            {/* QUỐC GIA */}
+            <span className="whitespace-nowrap inline-flex items-stretch cursor-default">
+              <span className="inline-flex items-baseline mr-2 md:mr-3">
+                <span className="p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent animate-flag-wave" style={{ animationDelay: '0ms' }}>QU</span>
+                <span className="relative inline-flex items-center justify-center shrink-0 animate-flag-wave" style={{ animationDelay: '150ms' }}>
+                  <span className="invisible p-[0.3em] -m-[0.3em]">Ố</span>
+                  <div className="absolute inset-x-0 top-0 bottom-0 flex items-center justify-center drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] z-10 origin-center scale-[1.15]">
+                    <svg viewBox="0 2 22 22" fill="#FFCF00">
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                    </svg>
+                  </div>
+                </span>
+                <span className="p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent animate-flag-wave" style={{ animationDelay: '300ms' }}>C</span>
+              </span>
+              <span className="inline-block p-[0.3em] -m-[0.3em] bg-linear-to-t from-[#ed1c29] from-50% to-[#2c2b7c] to-50% bg-size-[100%_250%] bg-bottom bg-clip-text text-transparent animate-flag-wave" style={{ animationDelay: '450ms' }}>GIA</span>
+            </span>
+          </motion.div>
         </div>
 
         {/* NEW CONTENT ADDED BELOW THE OLD ONE */}

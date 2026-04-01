@@ -82,3 +82,14 @@ body {
   animation: audio-wave 1s ease-in-out infinite;
   transform-origin: center;
 }
+
+@keyframes flag-wave {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
+}
+
+.animate-flag-wave {
+  animation: flag-wave 2s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
