@@ -37,12 +37,28 @@ const MAJOR_COMBOS: Record<string, string[]> = {
 };
 
 const BENCHMARKS_2025: Record<string, number> = {
-   "Quản trị nhân lực": 18.0,
-   "Quản trị văn phòng": 16.0,
-   "Luật / C.ngành Thanh tra": 21.0,
-   "Quản lý nhà nước": 18.0,
-   "Quản trị dịch vụ du lịch và lữ hành": 16.0,
-   "Kinh tế": 16.0
+   "Quản trị nhân lực": 24.2,
+   "Quản trị văn phòng": 24.05,
+   "Luật": 24.2,
+   "Luật / C.ngành Thanh tra": 24.2,
+   "Quản lý nhà nước": 23.75,
+   "Quản lý nhà nước (Chương trình đào tạo 50% bằng tiếng Anh)": 23.0,
+   "Quản lý nhà nước / C.ngành Quản trị tổ chức": 23.75,
+   "Quản lý nhà nước / C.ngành Quản trị địa phương": 23.75,
+   "Quản trị dịch vụ du lịch và lữ hành": 24.4,
+   "Kinh tế": 23.5,
+   "Kinh tế / C.ngành Kinh tế du lịch": 23.5,
+   "Chính trị học": 23.35,
+   "Lưu trữ học": 23.0,
+   "Lưu trữ học / C.ngành Văn thư – Lưu trữ": 23.0,
+   "Thông tin – Thư viện": 22.35,
+   "Xây dựng Đảng và chính quyền nhà nước": 23.35,
+   "Quản lý văn hóa": 23.55,
+   "Quản lý văn hóa / C.ngành Quản lý di sản văn hóa và phát triển du lịch": 23.55,
+   "Văn hóa học / C.ngành Văn hóa Du lịch": 23.9,
+   "Văn hóa học / C.ngành Văn hóa Truyền thông": 23.9,
+   "Hệ thống thông tin": 19.75,
+   "Hệ thống thông tin / C.ngành Hệ thống thông tin thương mại điện tử": 19.75
 };
 
 const COMBO_BONUS: Record<string, number> = {
@@ -204,7 +220,7 @@ export default function ScoreCalculator() {
    };
 
    const calculateScore = () => {
-      let subjectAvgs = [0, 0, 0];
+      const subjectAvgs = [0, 0, 0];
       let isMissingData = false;
 
       for (let r = 0; r < 3; r++) {
@@ -249,15 +265,12 @@ export default function ScoreCalculator() {
       const currentBenchmark = BENCHMARKS_2025[major] || 16.0;
 
       let status: "PASS" | "FAIL" = "PASS";
-      let messages: string[] = [];
-
-      if (rawTotal < 18.0) {
-         status = "FAIL";
-         messages.push("Tổng điểm 3 môn chưa đạt ngưỡng sàn 18.0 điểm theo quy chế APAG 2026.");
-      }
+      const messages: string[] = [];
 
       if (finalScore < currentBenchmark) {
          status = "FAIL";
+         messages.push(`Kết quả chưa đạt mức điểm trúng tuyển năm gần nhất (${currentBenchmark.toFixed(2)} điểm) cho ngành dự khớp.`);
+         messages.push(`Bạn vui lòng tham khảo các ngành có mức điểm phù hợp hơn ở cuối trang.`);
       }
 
       setResult({
@@ -315,7 +328,7 @@ export default function ScoreCalculator() {
    };
 
    const getSuggestedMajors = () => {
-      let suggested: string[] = [];
+      const suggested: string[] = [];
       Object.keys(BENCHMARKS_2025).forEach(m => {
          if (result.finalScore >= BENCHMARKS_2025[m]) {
             suggested.push(m);
@@ -537,7 +550,7 @@ export default function ScoreCalculator() {
                         <span className={`font-heading font-black text-[100px] md:text-[140px] leading-none tracking-tighter mix-blend-multiply ${result.status === "PASS" ? "text-[#2c2b7c]" : "text-gray-300"}`}>{result.finalScore.toFixed(2)}</span>
                      </div>
                      <div className="w-full md:w-1/3 flex flex-col items-center justify-center pt-12 md:pt-0 px-8 bg-[#FAFAFA]/50">
-                        <p className="text-[10px] font-bold text-[#555] uppercase tracking-[0.3em] mb-4 text-center">Điểm Sàn Ngoái</p>
+                        <p className="text-[10px] font-bold text-[#555] uppercase tracking-[0.3em] mb-4 text-center">Điểm trúng tuyển 2025</p>
                         <span className="font-heading font-black text-6xl md:text-8xl leading-none tracking-tighter opacity-20">{result.benchmark.toFixed(2)}</span>
                      </div>
                   </div>

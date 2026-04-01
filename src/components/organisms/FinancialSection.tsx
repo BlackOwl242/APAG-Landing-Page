@@ -45,12 +45,12 @@ export default function FinancialSection() {
           <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#555] mb-8">(CHÍNH SÁCH)</span>
           
           <div className="mb-2">
-            <h2 className="fin-reveal font-heading text-[clamp(2rem,7vw,80px)] font-black leading-[1.05] text-[#2c2b7c] tracking-tighter uppercase break-words">
+            <h2 className="fin-reveal font-heading text-[clamp(2rem,7vw,80px)] font-black leading-[1.05] text-[#2c2b7c] tracking-tighter uppercase wrap-break-word">
               HỌC BỔNG
             </h2>
           </div>
           <div className="mb-12">
-            <h2 className="fin-reveal font-heading text-[clamp(2rem,7vw,80px)] font-black leading-[1.05] text-[#2c2b7c] tracking-tighter uppercase break-words">
+            <h2 className="fin-reveal font-heading text-[clamp(2rem,7vw,80px)] font-black leading-[1.05] text-[#2c2b7c] tracking-tighter uppercase wrap-break-word">
               THỦ KHOA
             </h2>
           </div>
@@ -75,7 +75,7 @@ export default function FinancialSection() {
                <div className="w-8 h-[2px] bg-[#ed1c29]/50"></div>
                <span className="text-xs font-bold tracking-[0.2em] font-sans uppercase text-[#555]">Ký túc xá</span>
             </div>
-            <h3 className="font-heading text-[clamp(3rem,12vw,120px)] font-black text-[#2c2b7c] uppercase tracking-tighter leading-[1.0] cursor-default mb-6 break-words">
+            <h3 className="font-heading text-[clamp(3rem,12vw,120px)] font-black text-[#2c2b7c] uppercase tracking-tighter leading-none cursor-default mb-6 wrap-break-word">
               FREE
             </h3>
             <ul className="text-sm md:text-base font-semibold text-[#555] space-y-4 max-w-md list-disc list-inside text-balance">

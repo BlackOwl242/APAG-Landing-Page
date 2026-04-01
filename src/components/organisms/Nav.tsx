@@ -14,6 +14,22 @@ export default function Nav() {
   const menuItemsRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => console.error("Failed to play audio:", err));
+      }
+    }
+  };
+
   useEffect(() => {
     gsap.fromTo(
       navRef.current,
@@ -77,9 +93,17 @@ export default function Nav() {
 
   return (
     <>
+      <audio 
+        ref={audioRef} 
+        src="/sounds/2025.12 Sound Tổng kết năm.mp3" 
+        loop 
+        preload="none" 
+        className="hidden" 
+        controlsList="nodownload" 
+      />
       <div
         ref={navRef}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] bg-white/80 backdrop-blur-md border border-black/10 rounded-full flex items-center p-[6px] shadow-2xl opacity-0"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-60 bg-white/80 backdrop-blur-md border border-black/10 rounded-full flex items-center p-[6px] shadow-2xl opacity-0"
       >
         <button 
            onClick={toggleMenu}
@@ -104,18 +128,30 @@ export default function Nav() {
         </button>
 
         <div className="hidden lg:flex items-center px-4 gap-1">
-          <a href="/#about" onClick={(e) => handleScroll(e, '#about')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</a>
-          <a href="/#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</a>
-          <a href="/phuongthuc" onClick={(e) => handlePageTransition(e, "/phuongthuc")} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Phương thức</a>
-          <a href="/tinhdiem" onClick={(e) => handlePageTransition(e, "/tinhdiem")} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Tính điểm</a>
-          <a href="/#contact" onClick={(e) => handleScroll(e, '#contact')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</a>
+          <Link href="/#about" onClick={(e) => handleScroll(e, '#about')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Về chúng tôi</Link>
+          <Link href="/#timeline" onClick={(e) => handleScroll(e, '#timeline')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Lịch trình</Link>
+          <Link href="/phuongthuc" onClick={(e) => handlePageTransition(e, "/phuongthuc")} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Phương thức</Link>
+          <Link href="/tinhdiem" onClick={(e) => handlePageTransition(e, "/tinhdiem")} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Tính điểm</Link>
+          <Link href="/#contact" onClick={(e) => handleScroll(e, '#contact')} className="px-3 py-2 text-sm font-semibold text-[#555555] hover:text-[#ed1c29] transition-colors rounded-full hover:bg-black/5">Liên hệ</Link>
         </div>
 
         <div className="pl-4 border-l border-black/10 flex items-center pr-1 ml-1 h-8">
-          <button className="w-10 h-10 rounded-full bg-[#ed1c29] text-[#FAFAFA] flex items-center justify-center hover:scale-105 transition-transform group overflow-hidden relative border border-[#ed1c29]/20 shadow-lg" onClick={(e) => handleScroll(e as any, '#admissions')}>
-            <svg className="w-4 h-4 ml-0.5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
-               <path d="M8 5v14l11-7z" />
-            </svg>
+          <button 
+             onClick={toggleAudio}
+             title={isPlaying ? "Tắt âm thanh" : "Bật âm thanh"}
+             className="w-10 h-10 rounded-full bg-[#ed1c29] text-[#FAFAFA] flex items-center justify-center hover:scale-105 transition-transform group overflow-hidden relative border border-[#ed1c29]/20 shadow-lg"
+          >
+             {isPlaying ? (
+                <div className="flex items-center gap-[3px] w-4 h-4 relative z-10 justify-center">
+                   <div className="w-[3px] h-full bg-white rounded-full animate-audio-wave" style={{ animationDuration: '0.7s', animationDelay: '0s' }}></div>
+                   <div className="w-[3px] h-full bg-white rounded-full animate-audio-wave" style={{ animationDuration: '0.9s', animationDelay: '0.3s' }}></div>
+                   <div className="w-[3px] h-full bg-white rounded-full animate-audio-wave" style={{ animationDuration: '0.6s', animationDelay: '0.1s' }}></div>
+                </div>
+             ) : (
+                <svg className="w-4 h-4 ml-0.5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M8 5v14l11-7z" />
+                </svg>
+             )}
           </button>
         </div>
       </div>
@@ -123,7 +159,7 @@ export default function Nav() {
       {/* Full-Screen Menu Overlay */}
       <div 
         ref={overlayRef}
-        className="fixed inset-0 z-[55] bg-[#FAFAFA]/95 backdrop-blur-xl flex flex-col justify-center items-center opacity-0 pointer-events-none translate-y-4"
+        className="fixed inset-0 z-55 bg-[#FAFAFA]/95 backdrop-blur-xl flex flex-col justify-center items-center opacity-0 pointer-events-none translate-y-4"
       >
         <div className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-[#2c2b7c]/20"></div>
         <div className="absolute top-10 right-10 w-8 h-8 border-t-2 border-r-2 border-[#2c2b7c]/20"></div>
@@ -137,16 +173,16 @@ export default function Nav() {
         </div>
 
         <ul ref={menuItemsRef} className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-24 gap-y-5 md:gap-y-8 font-heading text-[22px] sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-[#2c2b7c] w-full max-w-[900px] px-8 text-center md:text-left">
-           <li><a onClick={(e) => handleScroll(e, '#headquarters')} href="/#headquarters" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tổng quan</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#about')} href="/#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Giới thiệu chung</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#programs')} href="/#programs" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Ngành đào tạo</a></li>
-           <li><a onClick={(e) => handlePageTransition(e, "/phuongthuc")} href="/phuongthuc" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Phương thức XT</a></li>
-           <li><a onClick={(e) => handlePageTransition(e, "/diemchuan")} href="/diemchuan" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Điểm chuẩn</a></li>
-           <li><a onClick={(e) => handlePageTransition(e, "/tinhdiem")} href="/tinhdiem" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tính điểm học bạ</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#timeline')} href="/#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Lịch trình TS</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#financial')} href="/#financial" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Học phí - KTX</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#faq')} href="/#faq" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Hỏi đáp - FAQ</a></li>
-           <li><a onClick={(e) => handleScroll(e, '#contact')} href="/#contact" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Liên hệ</a></li>
+           <li><Link onClick={(e) => handleScroll(e, '#headquarters')} href="/#headquarters" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tổng quan</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#about')} href="/#about" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Giới thiệu chung</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#programs')} href="/#programs" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Ngành đào tạo</Link></li>
+           <li><Link onClick={(e) => handlePageTransition(e, "/phuongthuc")} href="/phuongthuc" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Phương thức XT</Link></li>
+           <li><Link onClick={(e) => handlePageTransition(e, "/diemchuan")} href="/diemchuan" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Điểm chuẩn</Link></li>
+           <li><Link onClick={(e) => handlePageTransition(e, "/tinhdiem")} href="/tinhdiem" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Tính điểm học bạ</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#timeline')} href="/#timeline" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Lịch trình TS</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#financial')} href="/#financial" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Học phí - KTX</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#faq')} href="/#faq" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Hỏi đáp - FAQ</Link></li>
+           <li><Link onClick={(e) => handleScroll(e, '#contact')} href="/#contact" className="hover:text-[#ed1c29] transition-colors relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[3px] after:bottom-0 after:left-0 after:bg-[#ed1c29] after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left">Liên hệ</Link></li>
         </ul>
       </div>
     </>
