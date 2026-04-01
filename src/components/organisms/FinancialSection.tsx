@@ -90,13 +90,17 @@ export default function FinancialSection() {
                <span className="text-xs font-bold tracking-[0.2em] font-sans uppercase text-[#555]">Học phí</span>
             </div>
             <div className="flex flex-col gap-6">
-              <div className="flex justify-between items-baseline border-b border-[#2c2b7c]/10 pb-4">
-                <span className="text-lg md:text-2xl font-black tracking-tight uppercase text-[#2c2b7c]">564k <span className="text-xs font-bold text-[#888]">/ tín chỉ</span></span>
-                <span className="text-xs md:text-sm font-semibold text-[#555] text-right max-w-[200px] text-balance">Quản trị nhân lực, Luật, Thanh tra</span>
+              <div className="flex justify-between items-start border-b border-[#2c2b7c]/10 pb-4">
+                <span className="text-lg md:text-2xl font-black tracking-tight uppercase text-[#2c2b7c] min-w-[100px]">564k <span className="text-xs font-bold text-[#888]">/ tín chỉ</span></span>
+                <span className="text-xs md:text-sm font-semibold text-[#555] text-right max-w-[280px] text-balance">Quản trị nhân lực, Quản trị văn phòng, Luật</span>
               </div>
-              <div className="flex justify-between items-baseline border-b border-[#2c2b7c]/10 pb-4">
-                <span className="text-lg md:text-2xl font-black tracking-tight uppercase text-[#2c2b7c]">602k <span className="text-xs font-bold text-[#888]">/ tín chỉ</span></span>
-                <span className="text-xs md:text-sm font-semibold text-[#555] text-right max-w-[200px] text-balance">Quản lý nhà nước, Kinh tế, Du lịch</span>
+              <div className="flex justify-between items-start border-b border-[#2c2b7c]/10 pb-4">
+                <span className="text-lg md:text-2xl font-black tracking-tight uppercase text-[#2c2b7c] min-w-[100px]">602k <span className="text-xs font-bold text-[#888]">/ tín chỉ</span></span>
+                <span className="text-xs md:text-sm font-semibold text-[#555] text-right max-w-[280px] text-balance">Quản lý nhà nước, Văn hóa học, Quản lý văn hóa, QTDV du lịch & lữ hành, Lưu trữ học, Chính trị học, Xây dựng Đảng & CQNN, Kinh tế</span>
+              </div>
+              <div className="flex justify-between items-start border-b border-[#2c2b7c]/10 pb-4">
+                <span className="text-lg md:text-2xl font-black tracking-tight uppercase text-[#2c2b7c] min-w-[100px]">659k <span className="text-xs font-bold text-[#888]">/ tín chỉ</span></span>
+                <span className="text-xs md:text-sm font-semibold text-[#555] text-right max-w-[280px] text-balance">Hệ thống thông tin</span>
               </div>
             </div>
           </div>
