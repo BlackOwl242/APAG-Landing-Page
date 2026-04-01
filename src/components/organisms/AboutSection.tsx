@@ -106,8 +106,8 @@ export default function AboutSection() {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)}
             >
-              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>TRI</span>
-              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>THỨC</span>
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>TRI</span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>THỨC</span>
             </span>
 
             {/* ĐỔI MỚI */}
@@ -130,8 +130,8 @@ export default function AboutSection() {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)}
             >
-              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>SÁNG</span>
-              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>TẠO</span>
+              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>SÁNG</span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>TẠO</span>
             </span>
 
             {/* TRÁCH NHIỆM */}
@@ -155,19 +155,19 @@ export default function AboutSection() {
               onMouseLeave={() => setIsHovered(false)}
             >
               <span className="about-word inline-flex items-baseline mr-2 md:mr-3">
-                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>QU</span>
+                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>QU</span>
                 <span className="relative inline-flex items-center justify-center shrink-0">
-                  <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>Ố</span>
+                  <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>Ố</span>
                 </span>
-                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>C</span>
+                <span className="p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>C</span>
               </span>
-              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out" style={{ opacity: isHovered ? 0.1 : 1 }}>GIA</span>
+              <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c] transition-opacity duration-500 ease-out max-md:opacity-0!" style={{ opacity: isHovered ? 0.1 : 1 }}>GIA</span>
             </span>
           </div>
 
           {/* TOP LAYER (Masked Glow Overlay) */}
           <motion.div 
-            className="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
+            className="absolute top-0 left-0 w-full h-full pointer-events-none z-10 max-md:mask-none! max-md:[-webkit-mask-image:none]!"
             style={{ 
               WebkitMaskImage: maskImage, 
               maskImage: maskImage 
