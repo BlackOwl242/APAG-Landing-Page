@@ -95,8 +95,8 @@ export default function AboutSection() {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)}
             >
-              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">KIẾN</span>
-              <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TẠO</span>
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">KIẾN</span>
+              <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TẠO</span>
               <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
             </span>
 
@@ -116,10 +116,10 @@ export default function AboutSection() {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)}
             >
-              <span className="about-word inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
               <span className="relative inline-block mr-2 md:mr-3">
-                <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">ĐỔI</span>
-                <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">MỚI</span>
+                <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">ĐỔI</span>
+                <span className="inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">MỚI</span>
                 <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
               </span>
             </span>
@@ -140,10 +140,10 @@ export default function AboutSection() {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)}
             >
-              <span className="about-word inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
+              <span className="inline-block mr-4 md:mr-6 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">—</span>
               <span className="relative inline-block mr-2 md:mr-3">
-                <span className="about-word inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TRÁCH</span>
-                <span className="about-word inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">NHIỆM</span>
+                <span className="inline-block mr-2 md:mr-3 p-[0.3em] -m-[0.3em] text-[#2c2b7c]">TRÁCH</span>
+                <span className="inline-block p-[0.3em] -m-[0.3em] text-[#2c2b7c]">NHIỆM</span>
                 <div className="absolute bottom-1 md:bottom-2 left-0 w-full h-[4px] bg-[#ed1c29]/50 -z-10"></div>
               </span>
             </span>
