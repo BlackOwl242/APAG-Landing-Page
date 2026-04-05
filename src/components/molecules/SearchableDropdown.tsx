@@ -79,7 +79,7 @@ export default function SearchableDropdown<T>({
             </div>
           </div>
 
-          <div className="max-h-[250px] overflow-y-auto w-full flex flex-col py-1 custom-scrollbar" data-lenis-prevent="true">
+          <div className="max-h-[250px] overflow-y-auto w-full flex flex-col py-1 pr-1 custom-scrollbar" data-lenis-prevent="true">
             {filteredItems.length > 0 ? (
               filteredItems.map((item) => (
                 <div

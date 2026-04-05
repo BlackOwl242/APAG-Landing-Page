@@ -8,6 +8,7 @@ import ServicesSection from "@/components/organisms/ServicesSection";
 
 import TimelineSection from "@/components/organisms/TimelineSection";
 import FinancialSection from "@/components/organisms/FinancialSection";
+import FAQSection from "@/components/organisms/FAQSection";
 import AdmissionsSection from "@/components/organisms/AdmissionsSection";
 import AdmissionsMethodsCTA from "@/components/organisms/AdmissionsMethodsCTA";
 import ProgramsGroup1Section from "@/components/organisms/ProgramsGroup1Section";
@@ -43,6 +44,8 @@ export default function Home() {
       <TimelineSection />
       <SectionDivider />
       <FinancialSection />
+      <SectionDivider />
+      <FAQSection />
       <SectionDivider />
       <AdmissionsSection />
       <Footer />
